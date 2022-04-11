@@ -1,0 +1,96 @@
+	<!doctype html>
+<html lang="{{ site.lang | default: " en-US " }}">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+    <script src="https://kit.fontawesome.com/dc3ec3213a.js" crossorigin="anonymous"></script>
+    {% seo %}
+    <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
+    <script src="{{ '/assets/js/scale.fix.js' | relative_url }}"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=12.0, minimum-scale=.25, user-scalable=yes">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <nav>
+        <div class="logo">
+            <p> RFSOC-PYNQ</p>
+        </div>
+        <label for="btn" class="icon">
+          <span class="fa fa-bars"></span>
+      </label>
+        <input type="checkbox" id="btn">
+        <ul class="navbar-ul">
+            <li><label for="btn-4" class="show">Main Menu </label></li>
+            <li class="listedpages"><a style="color:white;" href="index.html">Home</a></li>
+            <!--<li class="listedpages"><a style="color:white;" href="getting_started.html">Getting Started</a> </li>-->
+				<!--<li><label for="btn-2" class="show">RFSoC 2x2</label></li>
+            <li class="listedpages"><a style="color:white;" href="rfsoc_2x2_overview.html">RFSoC 2x2 Overview</a> </li>
+            <li class="listedpages"><a style="color:white;" href="rfsoc_2x2_getting_started.html">Getting started guide</a> </li>-->
+				<li><label for="btn-2" class="show">RFSoC 4x2</label></li>				
+            <li class="listedpages"><a style="color:white;" href="rfsoc_4x2_overview.html">Overview</a> </li>
+            <li class="listedpages"><a style="color:white;" href="rfsoc_4x2_getting_started.html">Getting started guide</a> </li>
+				
+            <!--<li class="listedpages"><a style="color:white;" href="zcu111_overview.html">ZCU111</a> </li>
+            <li class="listedpages"><a style="color:white;" href="other_boards.html">Other boards</a> </li>-->
+				<!--<li><label for="btn-2" class="show">Other boards</label></li>
+				
+            <li class="listedpages"><a style="color:white;" href="boards.html">Other RFSoC boards</a> </li>-->
+				<li><label for="btn-2" class="show">Resources</label></li>
+            <li class="listedpages"><a style="color:white;" href="overlays.html">Overlays</a> </li>
+            <li class="listedpages"><a style="color:white;" href="educational_resources.html">Educational Resources</a> </li>
+            <li class="listedpages"><a style="color:white;" href="tutorial.html">Tutorials</a> </li>
+				<li class="listedpages"><a style="color:white;" href="accessories.html">RFSoC Accessories</a> </li>
+
+
+            <!--<li><label for="btn-1" class="show">Documents </label></li>
+            <li class="listedpages"><a style="color:white;" href="./pdf/RFSoC_4x2_UG.pdf">User Manual</a></li>
+            <li class="listedpages"><a style="color:white;" href="./pdf/RFSoC_4X2_Gen3_V1I2_SCH_Prototype_2021-08-24.1.pdf">Board Schematics</a></li>-->
+
+            <!--<li><label for="btn-2" class="show">Downloads </label></li>
+            <li class="listedpages"><a style="color:white;" href="http://www.pynq.io/board.html">RFSoC-PYNQ Images</a></li>-->
+            <!--<li class="listedpages"><a style="color:white;" href="./board_files.html">Board Files</a></li>
+            <li class="listedpages"><a style="color:white;" href="https://github.com/Xilinx/RFSoC4x2-PYNQ/blob/master/board/RFSoC4x2/base/vivado/constraints/base.xdc">XDC Files</a></li>-->
+				<li><label for="btn-2" class="show">Support </label></li>
+            <li class="listedpages"><a style="color:white;" href="purchase.html">Purchase</a> </li>
+            <li class="listedpages"><a style="color:white;" href="https://discuss.pynq.io/">PYNQ support forum</a> </li>
+            <li class="listedpages"><a style="color:white;" href="faqs.html">FAQs</a> </li>
+				<li><label for="btn-2" class="show">Legacy</label></li>
+				<li class="listedpages"><a style="color:white;" href="rfsoc_2x2_overview">RFSoC 2x2</a> </li>
+        </ul>
+    </nav>
+    <div class="wrapper">
+        <section>
+            {{ content }}
+        </section>
+
+        <footer>
+            <a class="buttons github" href="{{ site.github.repository_url }}"><b>View on GitHub</b></a>
+        </footer>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    {% if site.google_analytics %}
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', '{{ site.google_analytics }}', 'auto');
+        ga('send', 'pageview');
+    </script>
+    {% endif %}
+</body>
+
+</html>

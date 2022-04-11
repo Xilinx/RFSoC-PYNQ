@@ -1,0 +1,6 @@
+title: RFSoC-PYNQ
+logo: /assets/img/logo.png
+description: RFSOC-PYNQ is an extension to PYNQ which support the AMD-Xilinx Zynq RFSoC family of devices.
+show_downloads: true
+google_analytics: G-NEQBFQH00D
+theme: jekyll-theme-dinky

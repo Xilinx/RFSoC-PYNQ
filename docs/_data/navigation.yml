@@ -1,0 +1,31 @@
+docs_list_title: navigation
+docs:
+  
+- title: Home
+  url: index.html
+
+- title: Getting Started
+  url: getting_started.html
+  
+- title: Board Overview
+  url: overview.html
+  
+- title: Accessories 
+  url: accessories.html
+  
+- title: Overlays
+  url: overlays.html
+  
+- title: Educational Resources
+  url: educational_resources.html
+  
+- title: Tutorial
+  url: tutorial.html
+  
+- title: Support
+  url: support.html
+  
+- title: FAQs
+  url: faqs.html
+
+

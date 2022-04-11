@@ -1,0 +1,12 @@
+docs_list_title: downloads
+docs:
+  
+- title: PYNQ image
+  url: http://www.pynq.io/board.html
+  
+- title: Board Files
+  url: ./board_files.html
+  
+- title: XDC files
+  url: https://github.com/Xilinx/RFSoC4x2-PYNQ/blob/master/board/RFSoC4x2/base/vivado/constraints/base.xdc
+ 

@@ -1,0 +1,9 @@
+docs_list_title: documents
+docs:
+  
+- title: User Manual
+  url: ./link_to_ser_manual
+
+- title: Board schematics
+  url: ./pdf/RELEASED.RFSoC_4X2_Gen3_V2I1_SCH_Prototype_2021-12-17_V2.pdf
+  
