@@ -1,0 +1,14 @@
+diff --git a/sdbuild/packages/xrfclk/package/xrfclk/xrfclk.py b/sdbuild/packages/xrfclk/package/xrfclk/xrfclk.py
+index c8f4e6e4..6d7d04d7 100644
+--- a/sdbuild/packages/xrfclk/package/xrfclk/xrfclk.py
++++ b/sdbuild/packages/xrfclk/package/xrfclk/xrfclk.py
+@@ -244,7 +244,8 @@ def set_ref_clks(lmk_freq=122.88, lmx_freq=409.6):
+     # then store all register values from txt files, again only once
+     if lmk_devices == [] and lmx_devices == []:    
+         _find_devices()
+-        _read_tics_output()
++    
++    _read_tics_output()
+ 
+     for lmk in lmk_devices:
+         _set_LMK_clks(lmk_freq, lmk)
