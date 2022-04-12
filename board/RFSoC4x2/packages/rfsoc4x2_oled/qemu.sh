@@ -6,7 +6,7 @@ set -e
 
 cd /root/oled_build
 make
-cp libNHD0216AWSB3.so rfsoc4x2_oled
+cp libNHD0216AWSB3.so rfsoc4x2
 
 source /etc/profile.d/pynq_venv.sh
 python3 -m pip install .

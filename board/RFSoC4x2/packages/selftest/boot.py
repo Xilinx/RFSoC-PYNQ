@@ -15,7 +15,7 @@ from pynq import get_rails, DataRecorder, allocate
 from pynq import GPIO
 from pynq.lib.pmod import pmod_cable
 from pynq.overlays.base import BaseOverlay
-from rfsoc4x2_oled.nhd0216awsb3 import oled_display
+from rfsoc4x2 import oled
 from rfsystem.spectrum_sweep import ToneGenerator
 from rfsystem.spectrum_sweep import FrequencySelector
 from rfsystem.spectrum_sweep import SpectrumProcessor
@@ -60,7 +60,7 @@ class SelfTestOverlay(BaseOverlay):
 
         super().__init__(bitfile_name, **kwargs)
         addrs = netifaces.ifaddresses('eth0')
-        self.oled_display = oled_display()
+        self.oled_display = oled.oled_display()
         self.mac = addrs[netifaces.AF_LINK][0]['addr'].upper()
         self.pmbus_rails = None
         self.pmbus_recorder = None

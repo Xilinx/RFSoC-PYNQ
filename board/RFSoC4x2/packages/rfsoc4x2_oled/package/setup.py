@@ -4,7 +4,7 @@
 from setuptools import find_packages, setup
 
 setup(
-    name="rfsoc4x2_oled",
+    name="rfsoc4x2",
     version='1.0',
     author_email="pynq_support@xilinx.com",
     package_data={
