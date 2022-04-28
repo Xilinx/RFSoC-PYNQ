@@ -11,7 +11,9 @@ image: ${BSP_PATH} ${PREBUILT_SDIST} ${PREBUILT_IMAGE}
 	cd ${ROOT_PATH}/PYNQ/sdbuild/
 	make -n BOARDDIR=${ROOT_PATH}/board/RFSoC4x2 BOARDS=RFSoC4x2 PYNQ_SDIST=${PREBUILT_SDIST} PREBUILT=${PREBUILT_IMAGE}
 
-base:
+base: ${ROOT_PATH}/board/RFSoC4x2/base/base.bit
+	
+${ROOT_PATH}/board/RFSoC4x2/base/base.bit:
 	cd ${ROOT_PATH}/board/RFSoC4x2/base && make -n
 
 gitsubmodule:
