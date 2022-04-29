@@ -1,23 +1,15 @@
 # RFSoC 4x2 Kit
 This repository contains the source code and build scripts for the RFSoC 4x2 base design and image. The design files in this repository are compatible with Xilinx Vivado 2020.2, and PYNQ v2.7.0 and later.
 
-Please view the *RFSoC and PYNQ webpage* for more information on the RFSoC 4x2 platform [www.rfsoc-pynq.io](http://www.rfsoc-pynq.io/).
+## Getting started
+
+Visit the [RFSoC and PYNQ webpage](https://www.rfsoc-pynq.io/) to find out how to set up your board with a PYNQ image and explore all its features.
 
 <p align="center">
   <img width=75% src="./rfsoc_4x2.png" />
 </p>
 
-## Getting started
-
-1. Simply download the prebuilt PYNQ image for the RFSoC4x2 from the [PYNQ website](http://www.pynq.io/board.html) and burn to SD card using a tool like [balenaEtcher](https://www.balena.io/etcher/).
-
-2. Boot the board with the burned SD card and make sure the board is connected to your device or network.
-
-3. The board launches a Jupyter Lab server on startup which you can access via your browser `http://<board_ip_address>:9090/lab`
-
-4. Explore!
-
-## (optional) Image rebuilding steps
+## Image rebuilding steps
 
 For image rebuilding you will need a Linux (Ubuntu 18.04/20.04) host machine, with Vivado and Petalinux 2020.2 installed. For more host setup instructions please see the PYNQ [sdbuild readme](https://github.com/Xilinx/PYNQ/tree/master/sdbuild.
 
