@@ -11,7 +11,7 @@ Visit the [RFSoC and PYNQ webpage](https://www.rfsoc-pynq.io/) to find out how t
 
 ## Image rebuilding steps
 
-For image rebuilding you will need a Linux (Ubuntu 18.04/20.04) host machine, with Vivado and Petalinux 2020.2 installed. For more host setup instructions please see the PYNQ [sdbuild readme](https://github.com/Xilinx/PYNQ/tree/master/sdbuild.
+For image rebuilding you will need a Linux (Ubuntu 18.04/20.04) host machine, with Vivado and Petalinux 2020.2 installed. For more host setup instructions please see the PYNQ [sdbuild readme](https://github.com/Xilinx/PYNQ/tree/master/sdbuild).
 
 1. Clone this repository
 	
