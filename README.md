@@ -1,5 +1,5 @@
 # RFSoC 4x2 Kit
-This repository contains the source code and build scripts for the RFSoC 4x2 *base* design. The design files in this repository are compatible with Xilinx Vivado 2020.2, and PYNQ v2.7.0 and later.
+This repository contains the source code and build scripts for the RFSoC 4x2 base design and image. The design files in this repository are compatible with Xilinx Vivado 2020.2, and PYNQ v2.7.0 and later.
 
 Please view the *RFSoC and PYNQ webpage* for more information on the RFSoC 4x2 platform [www.rfsoc-pynq.io](http://www.rfsoc-pynq.io/).
 
@@ -19,26 +19,23 @@ Please view the *RFSoC and PYNQ webpage* for more information on the RFSoC 4x2 p
 
 ## (optional) Image rebuilding steps
 
-If you want to build your own image, you can  Ensure that Vivado and PetaLinux 2020.2 are sourced using the commands below. Change `<tool_path>` to the location of the tool installation. Note, that the terminal must also be configured to use a bash shell.
+For image rebuilding you will need a Linux (Ubuntu 18.04/20.04) host machine, with Vivado and Petalinux 2020.2 installed. For more host setup instructions please see the PYNQ [sdbuild readme](https://github.com/Xilinx/PYNQ/tree/master/sdbuild.
 
 1. Clone this repository
-
+	
 	```bash
 	git clone --recursive https://github.com/Xilinx/RFSoC4x2-PYNQ.git
 	```
-
-3. To rebuild just the base overlay, run
-
+2. To rebuild just the base overlay, run
+	
 	```
 	make base
 	```
-
-4. To rebuild the SD card image, run
-
+3. To rebuild the SD card image, run
+	
 	```
 	make image
 	```
-
 ---
 Copyright (C) 2022 Xilinx, Inc
 
