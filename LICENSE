@@ -34,21 +34,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -------------------------------------------------------------------------------
 
 COPYRIGHT TEXT:
-
-All Linux kernel driver code included in:
-board/RFSoC4x2/petalinux_bsp/meta-user/recipes-kernel/linux/linux-xlnx/0001-power-supply-irps-Add-support-for-irps-supply.patch
-board/RFSoC4x2/petalinux_bsp/meta-user/recipes-kernel/linux/linux-xlnx/0002-i2c-cadence-Implement-timeout.patch
-board/RFSoC4x2/petalinux_bsp/meta-user/recipes-kernel/linux/linux-xlnx/0003-drivers-misc-add-support-for-DDR-memory-management.patch
-
-and authored by Xilinx is released under the terms of GNU General Public License version 2:
-
 Copyright (C) 2022 Xilinx, Inc. All rights reserved.
-
 This software is licensed under the terms of the GNU General Public
 License version 2, as published by the Free Software Foundation, and
 may be copied, distributed, and modified under those terms.
-
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
+FILES:
+board/RFSoC4x2/petalinux_bsp/meta-user/recipes-kernel/linux/linux-xlnx/0001-power-supply-irps-Add-support-for-irps-supply.patch
+board/RFSoC4x2/petalinux_bsp/meta-user/recipes-kernel/linux/linux-xlnx/0002-i2c-cadence-Implement-timeout.patch
+board/RFSoC4x2/petalinux_bsp/meta-user/recipes-kernel/linux/linux-xlnx/0003-drivers-misc-add-support-for-DDR-memory-management.patch
