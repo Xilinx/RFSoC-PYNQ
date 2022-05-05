@@ -32,7 +32,15 @@ for _ in range(8):
     sleep(0.2)
 
 # Find activate interface name and IP address
-iface = ni.gateways()['default'][ni.AF_INET][1]
-ip_address = ni.ifaddresses(iface)[2][0]['addr']
+try:
+    iface = ni.gateways()['default'][ni.AF_INET][1]
+    ip_address = ni.ifaddresses(iface)[2][0]['addr']
 
-oled.write("IP Addr({}):\n{}".format(iface, ip_address))
+    oled.write("IP Addr({}):\n{}".format(iface, ip_address))
+except:
+    if ('usb0' in ni.interfaces()) and (len(ni.ifaddresses('usb0')) == 3):
+        iface = 'usb0'
+        ip_address = ni.ifaddresses('usb0')[2][0]['addr']
+        oled.write("IP Addr({}):\n{}".format(iface, ip_address))
+    else:
+        oled.write("RFSoC-PYNQ\nNo IP detected")
