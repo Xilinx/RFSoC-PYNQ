@@ -31,7 +31,7 @@ for _ in range(8):
     base.leds[0:4].off()
     sleep(0.2)
 
-# Find activate interface name and IP address
+# Find active interface name and IP address
 try:
     iface = ni.gateways()['default'][ni.AF_INET][1]
     ip_address = ni.ifaddresses(iface)[2][0]['addr']
