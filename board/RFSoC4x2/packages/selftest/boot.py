@@ -265,15 +265,15 @@ class SelfTestOverlay(BaseOverlay):
                 fundamental_result = 'Pass'
             else:
                 fundamental_result = 'Fail'
-            sfdr_result = all(array_results[2] > 40)
-            if sfdr_result == True:
-                sfdr_result = 'Pass'
-                logprint('Spectrum Sweep Pass: DAC -> ADC channel {}: SFDR is above the lower limit of 40dB'.format(i))
+            snr_result = all(array_results[2] > 40)
+            if snr_result == True:
+                snr_result = 'Pass'
+                logprint('Spectrum Sweep Pass: DAC -> ADC channel {}: SNR is above the lower limit of 40dB'.format(i))
             else:
-                sfdr_result = 'Fail'
-                logprint('Spectrum Sweep Error: DAC -> ADC channel {}: SFDR is below the lower limit of 40dB'.format(i))
+                snr_result = 'Fail'
+                logprint('Spectrum Sweep Error: DAC -> ADC channel {}: SNR is below the lower limit of 40dB'.format(i))
                 logprint('** Did you connect the SMA cables to the correct DAC and ADC?**')
-            channel_result = fundamental_result and sfdr_result
+            channel_result = fundamental_result and snr_result
             rfdc_results.append(channel_result)
 
         dc_channel_flags = {}
@@ -293,7 +293,7 @@ class SpectrumSweepApplication:
         Create a new spectrum sweep application by assigning a DacChannel and
         ADCChannel object. Optionally set the frequencies to be tested between
         0 to 4915.2MHz. The number of samples defines the FFT size for calculating
-        the fundamental receive frequency and simple SFDR.
+        the fundamental receive frequency and simple SNR.
 
         Attributes
         ----------
@@ -332,7 +332,7 @@ class SpectrumSweepApplication:
         """
         return pd.DataFrame(data=self._results,
                             index=["TX Frequency (MHz)",
-                                   "RX Fundamental (MHz)", "SFDR (dB)"])
+                                   "RX Fundamental (MHz)", "SNR (dB)"])
     
     def _start_generator(self):
         """ Starts the tone generator
@@ -351,8 +351,8 @@ class SpectrumSweepApplication:
             generator.amplitude_controller.enable = False
             generator.amplitude_controller.gain = 0
 
-    def _calculate_simple_sfdr(self, spectrum):
-        """ Calculates the SFDR for a given spectrum and channel properties
+    def _calculate_simple_snr(self, spectrum):
+        """ Calculates the SNR for a given spectrum and channel properties
 
         """
         return np.max(spectrum) - np.average(spectrum)
@@ -372,7 +372,7 @@ class SpectrumSweepApplication:
 
         """
         fundamental = []
-        sfdr = []
+        snr = []
         frequency_zones = \
             [self._sample_frequency/2*1e-6,
              (self._sample_frequency + self._sample_frequency/2)*1e-6]
@@ -387,8 +387,8 @@ class SpectrumSweepApplication:
             self._frequency_selector.centre_frequency = receive_frequency
             spectrum = self._spectrum_processor.get_spectrum()
             fundamental.append(self._calculate_fundamental(spectrum))
-            sfdr.append(self._calculate_simple_sfdr(spectrum))
-        self._results = np.array([self._frequencies, fundamental, sfdr])
+            snr.append(self._calculate_simple_snr(spectrum))
+        self._results = np.array([self._frequencies, fundamental, snr])
 
     def run(self):
         """ Starts the tone generator and runs Spectrum Sweep
