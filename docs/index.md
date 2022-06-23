@@ -44,7 +44,7 @@ RFSoC-PYNQ provides Python APIs, libraries and drivers for the RFSoC, example ov
 
 * [PYNQ framework](http://www.pynq.io) with Jupyter Lab for exceptional ease-of-use
 * *Python APIs* for RFSoC clock and data converters 
-* Support for RFSoC Gen 1, Gen 2 and Gen 3 devices including the [AMD University Program RFSoC 4x2](rfsoc4x2.html)
+* Support for RFSoC Gen 1, Gen 2 and Gen 3 devices including the [AMD University Program RFSoC 4x2](rfsoc_4x2_overview.md)
 * Complete end-to-end reference designs including spectrum analyzers and software defined radios (see [Overlays](overlays.html))
 * Open-source [educational resources](educational_resources.html) including teaching materials, notebooks, and design examples
 * [GitHub-hosted repositories](https://github.com/Xilinx/RFSoC4x2-PYNQ) of all project materials
@@ -56,4 +56,4 @@ The [RFSoC 4x2](rfsoc_4x2_overview.html) is the recommended kit to get started u
 
 See the [PYNQ community Support forum](https://discuss.pynq.io/) for discussion and to post support questions related to RFSoC-PYNQ. 
 
-For other enquiries [contact the AMD Xilinx University Program](xup@xilinx.com).
+For other enquiries [contact the AMD Xilinx University Program](mailto:xup@xilinx.com).
