@@ -68,7 +68,7 @@ schematics, bill of materials, and even the PCB Gerber files are available open-
 research teams, for example, to use the RFSoC 4x2 as the starting point for developing custom
 boards which they may require in their specific research experiments.
 
-To get access to the PCB Gerber files [contact XUP](xup@xilinx.com).
+To get access to the PCB Gerber files [contact XUP](mailto:xup@xilinx.com).
 
 ## Can I still purchase an RFSoC 2x2?
 
