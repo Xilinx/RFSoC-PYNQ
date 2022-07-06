@@ -43,11 +43,13 @@ if { [string first $scripts_vivado_version $current_vivado_version] == -1 } {
 # project, but make sure you do not have an existing project
 # <./myproj/project_1.xpr> in the current working folder.
 
+set_param board.repoPaths ../board_files/rfsoc4x2/1.0/
+
 set overlay_name base
 set list_projs [get_projects -quiet]
 if { $list_projs eq "" } {
    create_project ${overlay_name} ${overlay_name} -part xczu48dr-ffvg1517-2-e
-   set_property BOARD_PART xilinx.com:rfsoc4x2:part0:1.0 [current_project]
+   set_property BOARD_PART realdigital.org:rfsoc4x2:part0:1.0 [current_project]
 }
 
 set_property ip_repo_paths ../../ip [current_project]
