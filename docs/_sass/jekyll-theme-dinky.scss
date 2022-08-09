@@ -144,6 +144,17 @@ h2 {
     max-height: 260px
 }
 
+.you-container2 {
+    padding-bottom: 10px;
+    overflow: hidden;
+    padding-top: 10px;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+    height: auto;
+    max-width: 1000px;
+}
+
 h3 {
     font-size: 18px
 }
