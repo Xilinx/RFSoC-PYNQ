@@ -22,7 +22,7 @@ Optional:
 
 You can watch the getting started video guide or follow the instructions below. If you have any problems getting started, post a question to the [PYNQ support forum](https://discuss.pynq.io).
 
-<iframe style="you-container" src="https://www.youtube.com/embed/HMbYNFAhBY4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe class="you-container" src="https://www.youtube.com/embed/HMbYNFAhBY4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Setup instructions
 
