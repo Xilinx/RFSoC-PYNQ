@@ -121,7 +121,7 @@ Speakers: Patrick Lysaght (Xilinx Research Labs), Prof. Robert W. Stewart (Unive
 
 The benefits of integrating direct RF sampling data converters were demonstrated by introducing a novel, open-source spectrum analyzer built using the new board. This RFSoC design exploits advanced signal processing techniques, including higher-order Nyquist zones, to demonstrate performance that has only previously been achieved on very high-end instrumentation. Using the spectrum analyzer example, we will also demonstrate new approaches to the rapid prototyping of graphical user interfaces for research demonstrators.
 
-<div class="you-container"><iframe src="https://www.youtube.com/embed/73iypldwZ2I" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" width="100%" height="100%" frameborder="0"></iframe></div>
+<div><iframe class="you-container2" src="https://www.youtube.com/embed/73iypldwZ2I" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" frameborder="0"></iframe></div>
 
 
 ## Presentations (PDF) & links to video sections
