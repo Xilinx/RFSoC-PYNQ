@@ -319,24 +319,17 @@ a.buttons {
 }
 
 a.github {
-    background: url(../images/mask-small.png) no-repeat 1px
-}
-
-a.youtube {
-    background: url(../images/youtube.png) no-repeat 1px;
-    background-position: right;
-    padding: 2px 2px 2px 28px
-}
-
-a.pynq {
-    background: url(../images/pynq.png) no-repeat 1px;
-    padding: 2px 2px 2px 55px
+    background: url(../img/mask-small.png) no-repeat 1px
 }
 
 section {
     width: 1000px;
     float: right;
     padding-bottom: 50px
+}
+
+br.imgbr{
+    clear: right;
 }
 
 footer {
