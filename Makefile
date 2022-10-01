@@ -1,35 +1,49 @@
-ROOT_PATH := $(abspath $(dir $(firstword $(MAKEFILE_LIST))))
+# Copyright (C) 2022 Xilinx, Inc
+# SPDX-License-Identifier: BSD-3-Clause
 
-PREBUILT_IMAGE := ${ROOT_PATH}/aarch64_prebuilt_image.tar.gz
-PREBUILT_SDIST := ${ROOT_PATH}/pynq_2_7.tar.gz
-BSP_PATH := ${ROOT_PATH}/board/RFSoC4x2/RFSoC4x2.bsp
-BOARD_FILES := ${ROOT_PATH}/board/RFSoC4x2/board_files
+PREBUILT_ROOTFS_DST := ${CURDIR}/pynq/sdbuild/prebuilt/pynq_rootfs.aarch64.tar.gz
+PREBUILT_SDIST_DST := ${CURDIR}/pynq/sdbuild/prebuilt/pynq_sdist.tar.gz
+BSP_DST := ${CURDIR}/boards/${BOARD}/${BOARD}.bsp
 
-all: base image
-	echo ${ROOT_PATH}
+BASE_OVERLAY_PATH := ${CURDIR}/boards/${BOARD}/base
+BASE_OVERLAY := ${BASE_OVERLAY_PATH}/base.bit
 
-image: gitsubmodule ${BSP_PATH} ${PREBUILT_SDIST} ${PREBUILT_IMAGE}
-	cd ${ROOT_PATH}/PYNQ/sdbuild/ && make BOARDDIR=${ROOT_PATH}/board/ BOARDS=RFSoC4x2 PYNQ_SDIST=${PREBUILT_SDIST} PREBUILT=${PREBUILT_IMAGE}
+VERSION := 3.0.0
+IMAGE := ${BOARD}-${VERSION}.img
 
-base: ${BOARD_FILES} ${ROOT_PATH}/board/RFSoC4x2/base/base.bit
-	
-${ROOT_PATH}/board/RFSoC4x2/base/base.bit:
-	cd ${ROOT_PATH}/board/RFSoC4x2/base && make
+all: checkenv_rfsocpynq gitsubmodule ${PREBUILT_SDIST_DST} ${PREBUILT_ROOTFS_DST} checkenv_pynq ${BASE_OVERLAY} ${IMAGE}
+	@echo ""
+	@echo "  RFSoC-PYNQ completed building image: ${IMAGE}"
+	@echo ""
 
 gitsubmodule:
-	git submodule init && git submodule update
+	# git submodule init && git submodule update
 
-${BSP_PATH}:
-	wget "https://github.com/RealDigitalOrg/RFSoC4x2-BSP/blob/master/bsp_releases/RFSoC4x2_2020_2.bsp?raw=true" -O ${BSP_PATH}
+checkenv_rfsocpynq:
+ifeq ($(BOARD),)
+	$(error Please set board variable BOARD when calling this Makefile)
+endif
 
-${BOARD_FILES}:
-	cd ${ROOT_PATH}/board/RFSoC4x2/ && \
-	wget "https://www.realdigital.org/downloads/9d2af32116d5420d25da904f6a06bb1f.zip" -O bf.zip && \
-	unzip bf.zip -d board_files && rm bf.zip
+ifeq ($(wildcard $(BSP_DST)),)
+ifneq ($(BOARD),RFSoC2x2)
+	$(error Please copy $(BOARD) BSP to $(BSP_DST) - see README for download instructions)
+endif
+endif
 
-${PREBUILT_IMAGE}:
-	wget https://bit.ly/pynq_aarch64_2_7 -O ${PREBUILT_IMAGE}
+${PREBUILT_SDIST_DST}:
+	wget https://github.com/Xilinx/pynq/releases/download/v2.7.0/pynq-2.7.0.tar.gz -O ${PREBUILT_SDIST_DST}
 
-${PREBUILT_SDIST}:
-	wget https://github.com/Xilinx/PYNQ/releases/download/v2.7.0/pynq-2.7.0.tar.gz -O ${PREBUILT_SDIST}
+${PREBUILT_ROOTFS_DST}:
+	wget https://bit.ly/pynq_aarch64_2_7 -O ${PREBUILT_ROOTFS_DST}
 
+checkenv_pynq:
+	${CURDIR}/pynq/sdbuild/scripts/check_env.sh
+
+${BASE_OVERLAY}:
+ifneq ($(wildcard $(BASE_OVERLAY_PATH)),)
+	cd ${CURDIR}/boards/${BOARD}/base && make
+endif
+
+${IMAGE}: 
+	cd ${CURDIR}/pynq/sdbuild && make BOARDDIR=${CURDIR}/boards BOARDS=${BOARD}
+	mv ${CURDIR}/pynq/sdbuild/output/${BOARD}*.img ${IMAGE}

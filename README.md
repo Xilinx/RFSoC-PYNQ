@@ -1,32 +1,48 @@
-# RFSoC 4x2 Kit
-This repository contains the source code and build scripts for the RFSoC 4x2 base design and image. The design files in this repository are compatible with Xilinx Vivado 2020.2, and PYNQ v2.7.0 and later.
+![](rfsocpynq_logo.png)
+
+
+This repository contains the source code and build scripts for the RFSoC-PYNQ base design and SD card images. The design files in this repository are compatible with Xilinx Vivado 2022.1, and PYNQ v3.0.0 and later.  
+
+Currently, the ZCU111, ZCU208, RFSoC4x2 and RFSoC2x2 platforms are supported.
 
 ## Getting started
 
-You can download the prebuilt SD Card image from the [PYNQ boards page](http://www.pynq.io/board.html). Visit the [RFSoC-PYNQ webpage](https://www.rfsoc-pynq.io/) to find out how to set up your board with a PYNQ image and explore all its features.
+Visit the [RFSoC-PYNQ webpage](https://www.rfsoc-pynq.io/) for complete documentation on boards supported, features unique to RFSoC platforms and how to get support.
 
-<p align="center">
-  <img width=75% src="./rfsoc_4x2.png" />
-</p>
 
 ## Image rebuilding steps
 
-For image rebuilding you will need a Linux (Ubuntu 18.04/20.04) host machine, with Vivado and Petalinux 2020.2 installed. For more host setup instructions please see the PYNQ [sdbuild readme](https://github.com/Xilinx/PYNQ/tree/master/sdbuild).
+For optional image rebuilding for any of the boards, you will need a Linux (Ubuntu 18.04/20.04) host machine, with Vivado and Petalinux 2022.1 installed. For more host setup instructions please see the PYNQ [sdbuild readme](https://github.com/Xilinx/PYNQ/tree/master/sdbuild).
+
 
 1. Clone this repository
 	
 	```bash
-	git clone --recursive https://github.com/Xilinx/RFSoC4x2-PYNQ.git
+	git clone --recursive https://github.com/Xilinx/RFSoC-PYNQ.git
 	```
-2. To rebuild just the base overlay, run
+
+1. Copy the BSP (board support package) into the appropriate board folder.
+
+	| Board  | BSP Link |
+	| ------------- | ------------- |
+	| ZCU111  | [xilinx-zcu111-v2022.1.bsp](https://www.xilinx.com/member/forms/download/xef.html?filename=xilinx-zcu111-v2022.1-04191534.bsp)  |
+	| ZCU208  | [xilinx-zcu208-v2022.1.bsp](https://www.xilinx.com/member/forms/download/xef.html?filename=xilinx-zcu208-v2022.1-04191534.bsp)  |
+	| RFSoC4x2  | [RFSoC4x2_2022_1.bsp](https://github.com/RealDigitalOrg/RFSoC4x2-BSP/blob/master/bsp_releases/RFSoC4x2_2022_1.bsp?raw=true)  |
+	| RFSoC2x2  | No BSP needed.  |
 	
 	```
-	make base
+	cp <local-path-to-bsp> boards/<BOARD>/<BOARD>.bsp
 	```
-3. To rebuild the SD card image, run
+
+3. To rebuild just the base overlay, run
 	
 	```
-	make image
+	make BOARD=<BOARD> base
+	```
+4. To rebuild the SD card image, run
+	
+	```
+	make BOARD=<BOARD> image
 	```
 ---
 Copyright (C) 2022 Xilinx, Inc
