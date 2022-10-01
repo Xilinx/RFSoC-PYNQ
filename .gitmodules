@@ -1,3 +1,6 @@
 [submodule "PYNQ"]
 	path = PYNQ
 	url = https://github.com/xilinx/PYNQ
+[submodule "pynq"]
+	path = pynq
+	url = https://github.com/Xilinx/PYNQ
