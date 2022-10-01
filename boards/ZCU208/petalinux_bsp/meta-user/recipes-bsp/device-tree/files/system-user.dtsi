@@ -1,0 +1,26 @@
+&i2c_clk104 {
+	sc18is602@2f {
+		compatible = "nxp,sc18is602b";
+		reg = <0x2F>;
+		#address-cells = <0x1>;
+		#size-cells = <0x0>;
+		lmk@1 {
+			compatible = "ti,lmk04828";
+			reg = <0x1>;
+			spi-max-frequency = <400000>;
+			num_bytes = <3>;
+		};
+		lmxdac@2 {
+			compatible = "ti,lmx2594";
+			reg = <0x2>;
+			spi-max-frequency = <400000>;
+			num_bytes = <3>;
+		};
+		lmxadc@3 {
+			compatible = "ti,lmx2594";
+			reg = <0x3>;
+			spi-max-frequency = <400000>;
+			num_bytes = <3>;
+		};
+	};
+};
