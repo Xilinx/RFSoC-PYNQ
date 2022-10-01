@@ -18,7 +18,7 @@ if [ ! -d "/root/rfsoc_sam_build" ]; then
 	git clone https://github.com/strath-sdr/rfsoc_sam rfsoc_sam_build
 fi
 cd /root/rfsoc_sam_build
-python3 -m pip install .
+python3 -m pip install . --no-deps
 
 cd /root
 rm -rf rfsoc_sam_build

@@ -1,13 +1,14 @@
-From 85615df13817f9e37d3d5830af4cffc5204249a0 Mon Sep 17 00:00:00 2001
+From 48a50ce90c7b1fb16702b68f300cf9c102b5d8b1 Mon Sep 17 00:00:00 2001
 From: Nagaradhesh Yeleswarapu <nagaradh@xilinx.com>
 Date: Thu, 4 Jul 2019 17:22:08 +0530
-Subject: [PATCH 3/3] drivers: misc: add support for DDR memory management
+Subject: [PATCH] drivers: misc: add support for DDR memory management
 
 Add support to map PL DDR or PS DDR memory and initiate DMA transfer
 from PL or PS memory as per the usecase.
 
 Signed-off-by: Nagaradhesh Yeleswarapu <nagaradh@xilinx.com>
 Signed-off-by: Dragan Cvetic <draganc@xilinx.com>
+Signed-off-by: Anish Kadamathikuttiyil Karthikeyan Pillai <anishk@xilinx.com>
 ---
  drivers/misc/Kconfig  |   6 +
  drivers/misc/Makefile |   1 +
@@ -16,34 +17,35 @@ Signed-off-by: Dragan Cvetic <draganc@xilinx.com>
  create mode 100644 drivers/misc/pl_mem.c
 
 diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
-index 420a537..6c35349 100644
+index adafb2b..6ad95fd 100644
 --- a/drivers/misc/Kconfig
 +++ b/drivers/misc/Kconfig
-@@ -487,6 +487,12 @@ config PVPANIC
+@@ -501,6 +501,12 @@ config PVPANIC
  	  a paravirtualized device provided by QEMU; it lets a virtual machine
  	  (guest) communicate panic events to the host.
  
 +config PL_MEM
 +	tristate "PL Memory handler"
 +	default y
-+	---help---
-+	This module provides support to access PL memory and map the momory.
++	help
++	  This module provides support to access PL memory and map the momory.
 +
  source "drivers/misc/jesd204b/Kconfig"
  source "drivers/misc/c2port/Kconfig"
  source "drivers/misc/eeprom/Kconfig"
 diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile
-index fb3af7b..9aed310 100644
+index 5da60f5..ba42bed 100644
 --- a/drivers/misc/Makefile
 +++ b/drivers/misc/Makefile
-@@ -60,3 +60,4 @@ obj-$(CONFIG_XILINX_SDFEC)	+= xilinx_sdfec.o
+@@ -60,4 +60,5 @@ obj-$(CONFIG_XILINX_SDFEC)	+= xilinx_sdfec.o
  obj-$(CONFIG_XILINX_FLEX_PM)	+= xilinx_flex_pm.o
  obj-$(CONFIG_XILINX_TRAFGEN)	+= xilinx_trafgen.o
  obj-$(CONFIG_XILINX_JESD204B)	+= jesd204b/
 +obj-$(CONFIG_PL_MEM)		+= pl_mem.o
+ obj-$(CONFIG_XILINX_AIE)	+= xilinx-ai-engine/
 diff --git a/drivers/misc/pl_mem.c b/drivers/misc/pl_mem.c
 new file mode 100644
-index 0000000..545baf9
+index 0000000..77b1270
 --- /dev/null
 +++ b/drivers/misc/pl_mem.c
 @@ -0,0 +1,786 @@
@@ -66,7 +68,7 @@ index 0000000..545baf9
 + */
 +#include <linux/cdev.h>
 +#include <linux/clk.h>
-+#include <linux/dma-mapping.h>
++#include <linux/dma-map-ops.h>
 +#include <linux/fs.h>
 +#include <linux/init.h>
 +#include <linux/interrupt.h>
@@ -496,7 +498,7 @@ index 0000000..545baf9
 +	dev_err(this->sys_dev, "buffer size    = %zu\n", this->alloc_size);
 +	if ((MINOR(this->device_number) == 0) ||
 +		(MINOR(this->device_number) == MAX_DAC)) {
-+		chan = dma_request_slave_channel_reason(parent, channel);
++		chan = dma_request_chan(parent, channel);
 +		if (IS_ERR(chan)) {
 +			ret = PTR_ERR(chan);
 +			dev_err(this->dma_dev, "%s DMA request channel failed:%d\n",

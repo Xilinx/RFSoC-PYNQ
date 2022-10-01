@@ -1,9 +1,6 @@
 # Copyright (C) 2022 Xilinx, Inc
 # SPDX-License-Identifier: BSD-3-Clause
 
-__author__ = "David Northcote"
-__copyright__ = "Copyright 2021, Xilinx"
-__email__ = "pynq_support@xilinx.com"
 
 
 from pynq import DefaultIP
@@ -65,3 +62,4 @@ class PacketGenerator(DefaultIP):
             self.write(0x4, int(1))
         else:
             self.write(0x4, int(0))
+

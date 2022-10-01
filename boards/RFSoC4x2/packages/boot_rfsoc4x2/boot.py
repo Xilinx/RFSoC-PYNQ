@@ -14,9 +14,9 @@ oled = oled.oled_display()
 oled.write("RFSoC-PYNQ\nVersion {}".format(pynq.__version__))
 
 # LMK clock config
-lmk_reset = GPIO(345, 'out')
-lmk_clk_sel0 = GPIO(346, 'out')
-lmk_clk_sel1 = GPIO(350, 'out')
+lmk_reset = GPIO(341, 'out')
+lmk_clk_sel0 = GPIO(342, 'out')
+lmk_clk_sel1 = GPIO(346, 'out')
 
 lmk_reset.write(1)
 lmk_reset.write(0)

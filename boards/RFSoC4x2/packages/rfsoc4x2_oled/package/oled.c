@@ -117,7 +117,7 @@ void init (void)
 		exit (2);
 	}
 
-	data = SPI_MODE_3 | SPI_CS_HIGH;
+	data = SPI_MODE_3;
 	status = ioctl  (oled, SPI_IOC_WR_MODE, &data);
 	if (status < 0) {
 		printf ("SPI_IOC_WR_MODE failed.\n");

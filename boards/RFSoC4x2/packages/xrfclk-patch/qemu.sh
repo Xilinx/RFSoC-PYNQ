@@ -7,7 +7,7 @@ set -e
 
 . /etc/environment
 
-dest=/usr/local/share/pynq-venv/lib/python3.8/site-packages/xrfclk
+dest=/usr/local/share/pynq-venv/lib/python3.10/site-packages/xrfclk
 
 cd /root/xrfclk-patch
 

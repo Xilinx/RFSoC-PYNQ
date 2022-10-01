@@ -1,9 +1,6 @@
 # Copyright (C) 2022 Xilinx, Inc
 # SPDX-License-Identifier: BSD-3-Clause
 
-__author__ = "David Northcote"
-__copyright__ = "Copyright 2021, Xilinx"
-__email__ = "pynq_support@xilinx.com"
 
 
 from pynq import DefaultIP
@@ -70,3 +67,4 @@ class AmplitudeController(DefaultIP):
             self.write(0x04, int_gain)
         else:
             raise ValueError('Programmable Gain must be in range 0 to 1.')
+

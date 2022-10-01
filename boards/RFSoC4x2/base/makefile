@@ -4,10 +4,14 @@
 overlay_name := base
 design_name := base
 
-all: block_design bitstream check_timing
+all: board_files block_design bitstream check_timing
 	@echo
 	@tput setaf 2 ; echo "Built $(overlay_name) successfully!"; tput sgr0;
 	@echo
+
+board_files:
+	wget "https://www.realdigital.org/downloads/9d2af32116d5420d25da904f6a06bb1f.zip" -O bf.zip && \
+	unzip bf.zip -d board_files && rm bf.zip
 
 block_design:
 	vivado -mode batch -source $(overlay_name).tcl -notrace

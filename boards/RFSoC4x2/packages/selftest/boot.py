@@ -21,7 +21,7 @@ from rfsystem.spectrum_sweep import FrequencySelector
 from rfsystem.spectrum_sweep import SpectrumProcessor
 from rfsystem.cmac import CMAC
 
-lmk_reset = GPIO(345, 'out')
+lmk_reset = GPIO(341, 'out')
 lmk_reset.write(0x0)
 
 # Test constants
@@ -49,8 +49,7 @@ RAIL_RANGES = {
 }
 
 FREQUENCIES = [200, 600, 1000, 1600, 2600, 3200, 3600, 4200, 4400, 4800]
-BITSTREAM_PATH = '/usr/local/share/pynq-venv/lib/python3.8/site-packages' \
-                 '/pynq/overlays/base/base.bit'
+BITSTREAM_PATH = 'base.bit'
 
 
 class SelfTestOverlay(BaseOverlay):
@@ -268,10 +267,10 @@ class SelfTestOverlay(BaseOverlay):
             sfdr_result = all(array_results[2] > 40)
             if sfdr_result == True:
                 sfdr_result = 'Pass'
-                logprint('Spectrum Sweep Pass: DAC -> ADC channel {}: SNR is above the lower limit of 40dB'.format(i))
+                logprint('Spectrum Sweep Pass: DAC -> ADC channel {}: SFDR is above the lower limit of 40dB'.format(i))
             else:
                 sfdr_result = 'Fail'
-                logprint('Spectrum Sweep Error: DAC -> ADC channel {}: SNR is below the lower limit of 40dB'.format(i))
+                logprint('Spectrum Sweep Error: DAC -> ADC channel {}: SFDR is below the lower limit of 40dB'.format(i))
                 logprint('** Did you connect the SMA cables to the correct DAC and ADC?**')
             channel_result = fundamental_result and sfdr_result
             rfdc_results.append(channel_result)
@@ -293,7 +292,7 @@ class SpectrumSweepApplication:
         Create a new spectrum sweep application by assigning a DacChannel and
         ADCChannel object. Optionally set the frequencies to be tested between
         0 to 4915.2MHz. The number of samples defines the FFT size for calculating
-        the fundamental receive frequency and simple SNR.
+        the fundamental receive frequency and simple SFDR.
 
         Attributes
         ----------
@@ -332,7 +331,7 @@ class SpectrumSweepApplication:
         """
         return pd.DataFrame(data=self._results,
                             index=["TX Frequency (MHz)",
-                                   "RX Fundamental (MHz)", "SNR (dB)"])
+                                   "RX Fundamental (MHz)", "SFDR (dB)"])
     
     def _start_generator(self):
         """ Starts the tone generator
@@ -352,7 +351,7 @@ class SpectrumSweepApplication:
             generator.amplitude_controller.gain = 0
 
     def _calculate_simple_sfdr(self, spectrum):
-        """ Calculates the SNR for a given spectrum and channel properties
+        """ Calculates the SFDR for a given spectrum and channel properties
 
         """
         return np.max(spectrum) - np.average(spectrum)

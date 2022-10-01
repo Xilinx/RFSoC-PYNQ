@@ -1,3 +1,6 @@
+# Copyright (C) 2022 Xilinx, Inc
+# SPDX-License-Identifier: BSD-3-Clause
+
 ## Constraints file for RFSoC4x2 base overlay Vivado project
 
 # 156.25 MHz USER_MGT_SI570_CLOCK - CMAC input clock
