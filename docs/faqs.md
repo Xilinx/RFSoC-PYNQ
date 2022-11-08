@@ -4,6 +4,8 @@ layout: default
 
 # Frequently Asked Questions
 
+These FAQ are primarily for the RFSoC 4x2 and 2x2. 
+
 ## Can you tell me more about the RFSoC 4x2?
 
 In Feb 2021, the PYNQ team launched the RFSoC 2x2, an exciting new platform for software-defined

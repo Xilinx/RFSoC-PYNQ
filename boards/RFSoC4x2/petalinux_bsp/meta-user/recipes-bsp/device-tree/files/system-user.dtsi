@@ -1,0 +1,160 @@
+/include/ "system-conf.dtsi"
+#include <dt-bindings/phy/phy.h>
+
+/ {
+	chosen {
+		bootargs = " earlycon console=ttyPS0,115200 clk_ignore_unused root=/dev/mmcblk0p2 rw";
+		stdout-path = "serial0:115200n8";
+	};
+
+        dp_clk:psgtr_dp_clock {
+                compatible = "fixed-clock";
+                #clock-cells = <0x00>;
+                clock-frequency = <27000000>;
+        };
+
+	usb_clk:psgtr_usb_clock {
+                compatible = "fixed-clock";
+		#clock-cells = <0x00>;
+                clock-frequency = <26000000>;
+	};
+
+};
+
+&gem1 {
+	status = "okay";
+	phy-handle = <&phy0>;
+	phy-mode = "rgmii-id";
+	/* pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_gem1_default>; */
+	phy0: phy@f {
+		reg = <0xf>;
+		ti,rx-internal-delay = <0x8>;
+		ti,tx-internal-delay = <0xa>;
+		ti,fifo-depth = <0x1>;
+		ti,dp83867-rxctrl-strap-quirk;
+	};
+};
+
+
+&sdhci0 {
+	no-1-8-v;
+};
+
+
+&psgtr {
+      /* dp 0-1, usb0, usb1 */
+      clocks = <&usb_clk>, <&dp_clk>;
+      clock-names = "ref0", "ref1";
+
+
+
+};
+
+&zynqmp_dpsub {
+	phys = <&psgtr 1 PHY_TYPE_DP 0 1>, <&psgtr 0 PHY_TYPE_DP 1 1>;
+};
+
+&usb0 {
+	status = "okay";
+        phy-names = "usb3-phy";
+	phys = <&psgtr 2 PHY_TYPE_USB3 0 0>;
+};
+
+&dwc3_0 {
+	status = "okay";
+	dr_mode = "peripheral";
+	snps,usb3_lpm_capable;
+	maximum-speed = "super-speed";
+};
+
+&usb1 {
+	status = "okay";
+	phy-names = "usb3-phy";
+	phys = <&psgtr 3 PHY_TYPE_USB3 1 0>;
+};
+
+&dwc3_1 {
+	status = "okay";
+	dr_mode = "host";
+	snps,usb3_lpm_capable;
+	maximum-speed = "super-speed";
+};
+
+&spi1 {
+	spidev@0 {
+		compatible = "rohm,dh2228fv";
+		reg = <0>;
+		spi-max-frequency = <500000>;
+	};
+};
+
+&spi0 {
+	lmk@0 {
+		compatible = "ti,lmk04828";
+		reg = <0x0>;
+		spi-max-frequency = <500000>;
+		num_bytes = <3>;
+	};
+	lmxdac@1 {
+		compatible = "ti,lmx2594";
+		reg = <0x1>;
+		spi-max-frequency = <500000>;
+		num_bytes = <3>;
+	};
+	lmxadc@2 {
+		compatible = "ti,lmx2594";
+		reg = <0x2>;
+		spi-max-frequency = <500000>;
+		num_bytes = <3>;
+	};
+};
+
+&i2c0 {
+	ina220_IC77@40 {
+		compatible = "ti,ina220";
+		reg = <0x40>;
+		shunt-resistor = <1000>;
+	};
+	ina220_IC78@41 {
+		compatible = "ti,ina220";
+		reg = <0x41>;
+		shunt-resistor = <1000>;
+	};
+	ina220_IC79@42 {
+		compatible = "ti,ina220";
+		reg = <0x42>;
+		shunt-resistor = <1000>;
+	};
+	ina220_IC80@43 {
+		compatible = "ti,ina220";
+		reg = <0x43>;
+		shunt-resistor = <10000>;
+	};
+	ina220_IC81@44 {
+		compatible = "ti,ina220";
+		reg = <0x44>;
+		shunt-resistor = <10000>;
+	};
+	ina220_IC82@45 {
+		compatible = "ti,ina220";
+		reg = <0x45>;
+		shunt-resistor = <10000>;
+	};
+	ina220_IC83@46 {
+		compatible = "ti,ina220";
+		reg = <0x46>;
+		shunt-resistor = <10000>;
+	};
+	ina220_IC84@47 {
+		compatible = "ti,ina220";
+		reg = <0x47>;
+		shunt-resistor = <10000>;
+	};
+	ina220_IC85@48 {
+		compatible = "ti,ina220";
+		reg = <0x48>;
+		shunt-resistor = <10000>;
+	};
+};
+

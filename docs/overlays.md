@@ -4,18 +4,18 @@ layout: default
 
 # RFSoC-PYNQ overlays
 
-Most of the overlays on this page support the RFSoC 2x2, RFSoC 4x2 and ZCU111. Check each overlay for details. The designs are open source and can be ported to other suitable Zynq Ultrascale+ RFSoC boards. 
+Most of the overlays on this page support the RFSoC 2x2, RFSoC 4x2, ZCU111, and ZCU208. Check each overlay for details. The designs are open source and can be ported to other suitable Zynq Ultrascale+ RFSoC boards. 
 
 ## Base Overlay
 
-The `base` overlay is included in the PYNQ image for the RFSoC 2x2, RFSoC 4x2 boards and will be available for you to use from the first time you start your board.  The purpose of the base overlay design is to allow you to start exploring your board with PYNQ out-of-the-box. 
+The `base` overlay is included in the PYNQ image and will be available for you to use from the first time you start your board.  The purpose of the base overlay design is to allow you to start exploring your board with PYNQ out-of-the-box. 
 
 * [RFSoC 2x2 base overlay](./rfsoc_2x2_base_overlay.html) RFSoC Gen 1 with 2x ADC, 2x DAC
 * [RFSoC 4x2 base overlay](./rfsoc_4x2_base_overlay.html) RFSoC Gen 3 with 4x ADC, 2x DAC, 100G CMAC
 
 ## Spectrum Analyzer
 
-An RFSoC spectrum analysis tool is available on the RFSoC 2x2, RFSoC 4x2, and ZCU111 from the first time you start your board with the RFSoC-PYNQ. The spectrum analyzer was developed by the [University of Strathclyde](https://sdr.eee.strath.ac.uk/) Software Defined Radio (SDR) research laboratory. You can use the spectrum analyzer tool to explore your surrounding RF spectrum.
+An RFSoC spectrum analysis tool is available on the RFSoC 2x2, RFSoC 4x2, ZCU111, and ZCU208 from the first time you start your board with the RFSoC-PYNQ. The spectrum analyzer was developed by the [University of Strathclyde](https://sdr.eee.strath.ac.uk/) Software Defined Radio (SDR) research laboratory. You can use the spectrum analyzer tool to explore your surrounding RF spectrum.
 
 ![](./images/strathclyde/rfsoc_spectrum_analyser_500.png)
 

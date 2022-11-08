@@ -1,0 +1,52 @@
+/include/ "system-conf.dtsi"
+/ {
+	amba_pl@0 {
+		data_source_top0:data_source_top@a0000000 {
+			compatible = "xlnx,data-source-top-1.0";
+			reg = <0x0 0xa0000000 0x0 0x10000>;
+		};
+	};
+};
+
+&i2c1 {
+	i2c-mux@74 { /* u26 */
+		i2c@5 {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			reg = <5>;
+				sc18is603@2f { /* sc18is602 - u93 */
+					/* Part name is sc18is602 - using sc18is603 to match ZCU111 system-user.dtsi */
+					compatible = "nxp,sc18is602b";
+					reg = <0x2f>;
+					#address-cells = <0x1>;
+					#size-cells = <0x0>;
+					lmxC@0 {
+							compatible = "ti,lmx2594";
+							reg = <0x0>;
+							spi-max-frequency = <400000>;
+							num_bytes = <4>;
+							};
+					lmk@1 {
+							compatible = "ti,lmk04208";
+							reg = <0x1>;
+							spi-max-frequency = <400000>;
+							num_bytes = <4>;
+							};
+					lmxB@2 {
+							compatible = "ti,lmx2594";
+							reg = <0x2>;
+							spi-max-frequency = <400000>;
+							num_bytes = <4>;
+							};
+					lmxA@3 {
+							compatible = "ti,lmx2594";
+							reg = <0x3>;
+							spi-max-frequency = <400000>;
+							num_bytes = <4>;
+							};
+				};
+		};
+	};
+};
+
+

@@ -1,0 +1,840 @@
+From 48a50ce90c7b1fb16702b68f300cf9c102b5d8b1 Mon Sep 17 00:00:00 2001
+From: Nagaradhesh Yeleswarapu <nagaradh@xilinx.com>
+Date: Thu, 4 Jul 2019 17:22:08 +0530
+Subject: [PATCH] drivers: misc: add support for DDR memory management
+
+Add support to map PL DDR or PS DDR memory and initiate DMA transfer
+from PL or PS memory as per the usecase.
+
+Signed-off-by: Nagaradhesh Yeleswarapu <nagaradh@xilinx.com>
+Signed-off-by: Dragan Cvetic <draganc@xilinx.com>
+Signed-off-by: Anish Kadamathikuttiyil Karthikeyan Pillai <anishk@xilinx.com>
+---
+ drivers/misc/Kconfig  |   6 +
+ drivers/misc/Makefile |   1 +
+ drivers/misc/pl_mem.c | 786 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 793 insertions(+)
+ create mode 100644 drivers/misc/pl_mem.c
+
+diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
+index adafb2b..6ad95fd 100644
+--- a/drivers/misc/Kconfig
++++ b/drivers/misc/Kconfig
+@@ -501,6 +501,12 @@ config PVPANIC
+ 	  a paravirtualized device provided by QEMU; it lets a virtual machine
+ 	  (guest) communicate panic events to the host.
+ 
++config PL_MEM
++	tristate "PL Memory handler"
++	default y
++	help
++	  This module provides support to access PL memory and map the momory.
++
+ source "drivers/misc/jesd204b/Kconfig"
+ source "drivers/misc/c2port/Kconfig"
+ source "drivers/misc/eeprom/Kconfig"
+diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile
+index 5da60f5..ba42bed 100644
+--- a/drivers/misc/Makefile
++++ b/drivers/misc/Makefile
+@@ -60,4 +60,5 @@ obj-$(CONFIG_XILINX_SDFEC)	+= xilinx_sdfec.o
+ obj-$(CONFIG_XILINX_FLEX_PM)	+= xilinx_flex_pm.o
+ obj-$(CONFIG_XILINX_TRAFGEN)	+= xilinx_trafgen.o
+ obj-$(CONFIG_XILINX_JESD204B)	+= jesd204b/
++obj-$(CONFIG_PL_MEM)		+= pl_mem.o
+ obj-$(CONFIG_XILINX_AIE)	+= xilinx-ai-engine/
+diff --git a/drivers/misc/pl_mem.c b/drivers/misc/pl_mem.c
+new file mode 100644
+index 0000000..77b1270
+--- /dev/null
++++ b/drivers/misc/pl_mem.c
+@@ -0,0 +1,786 @@
++/*
++ * PL MEM Mapping driver
++ *
++ * Copyright (C) 2018 Xilinx, Inc. All rights reserved.
++ *
++ * Based on the UDMA Buff driver.
++ *
++ * Description:
++ * This PL MEM driver, allocates coherent memory in either PL or PS
++ * depending on the selection. Triggers DEV_TO_MEM or MEM_TO_DEVICE
++ * DMA depending on the usecase.
++ *
++ * This program is free software: you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation, either version 2 of the License, or
++ * (at your option) any later version.
++ */
++#include <linux/cdev.h>
++#include <linux/clk.h>
++#include <linux/dma-map-ops.h>
++#include <linux/fs.h>
++#include <linux/init.h>
++#include <linux/interrupt.h>
++#include <linux/kernel.h>
++#include <linux/module.h>
++#include <linux/mutex.h>
++#include <linux/of.h>
++#include <linux/of_device.h>
++#include <linux/device.h>
++#include <linux/platform_device.h>
++#include <linux/slab.h>
++#include <linux/string.h>
++#include <linux/sysctl.h>
++#include <linux/types.h>
++#include <linux/pagemap.h>
++#include <linux/version.h>
++#include <linux/of_address.h>
++#include <linux/dmaengine.h>
++#include <linux/dma-mapping.h>
++#include <asm/page.h>
++#include <asm/byteorder.h>
++
++#define DEVICE_MAX_NUM      256
++#define MAX_INSTANCES	    4
++#define DRIVER_NAME        "plmem"
++#define DEVICE_NAME_FORMAT "plmem%d"
++/**
++ * sync_mode(synchronous mode) value
++ */
++#define SYNC_MODE_INVALID       (0x00)
++#define SYNC_MODE_NONCACHED     (0x01)
++#define SYNC_MODE_WRITECOMBINE  (0x02)
++#define SYNC_MODE_DMACOHERENT   (0x03)
++#define SYNC_MODE_MASK          (0x03)
++#define SYNC_ALWAYS             (0x04)
++
++/**
++ * _PGPROT_NONCACHED    : vm_page_prot value when ((sync_mode & SYNC_MODE_MASK)
++ *			== SYNC_MODE_NONCACHED)
++ * _PGPROT_WRITECOMBINE : vm_page_prot value when ((sync_mode & SYNC_MODE_MASK)
++ *			== SYNC_MODE_WRITECOMBINE)
++ * _PGPROT_DMACOHERENT  : vm_page_prot value when ((sync_mode & SYNC_MODE_MASK)
++ *			== SYNC_MODE_DMACOHERENT )
++ */
++#if defined(CONFIG_ARM)
++#define _PGPROT_NONCACHED(vm_page_prot)    pgprot_noncached(vm_page_prot)
++#define _PGPROT_WRITECOMBINE(vm_page_prot) pgprot_writecombine(vm_page_prot)
++#define _PGPROT_DMACOHERENT(vm_page_prot)  pgprot_dmacoherent(vm_page_prot)
++#elif defined(CONFIG_ARM64)
++#define _PGPROT_NONCACHED(vm_page_prot)    pgprot_writecombine(vm_page_prot)
++#define _PGPROT_WRITECOMBINE(vm_page_prot) pgprot_writecombine(vm_page_prot)
++#define _PGPROT_DMACOHERENT(vm_page_prot)  pgprot_writecombine(vm_page_prot)
++#else
++#define _PGPROT_NONCACHED(vm_page_prot)    pgprot_noncached(vm_page_prot)
++#define _PGPROT_WRITECOMBINE(vm_page_prot) pgprot_writecombine(vm_page_prot)
++#define _PGPROT_DMACOHERENT(vm_page_prot)  pgprot_writecombine(vm_page_prot)
++#endif
++
++#define MAX_DAC 16
++enum {
++	NO_MEM = 0,
++	PL_MEM,
++	PS_MEM,
++};
++
++
++enum {
++	DDR,
++	BRAM,
++	MAX,
++};
++
++static DEFINE_IDA(plmem_device_ida);
++static dev_t  plmem_device_number;
++static bool plmem_platform_driver_done;
++static struct class *plmem_sys_class;
++struct dma_chan *chan_dac;
++struct dma_chan *chan_adc;
++
++/**
++ * struct plmem_driver_data - Plmem driver data
++ * @sys_dev: character device pointer
++ * @dma_dev: Device pointer
++ * @cdev: character device structure
++ * @chan: DMA channel
++ * @complete: completion variable
++ * @device_number: character driver device number
++ * @is_dac: DAC or ADC device
++ * @size: size of memory pool
++ * @alloc_size: size of memory pool, aligned to a page size
++ * @virt_addr: virtual address of memory region
++ * @phys_addr: physical address of memory region
++ * @sync_mode: holds page prot information
++ * @mem_used: holds whether pool is uses or not
++ */
++struct plmem_driver_data {
++	struct device *sys_dev;
++	struct device *dma_dev;
++	struct cdev cdev;
++	struct dma_chan *chan;
++	struct completion complete;
++	dev_t device_number;
++	bool is_dac;
++	int size;
++	size_t alloc_size;
++	void *virt_addr;
++	dma_addr_t phys_addr;
++	int sync_mode;
++	int mem_used;
++	u32 mem_type;
++};
++
++/**
++ * plmem_driver_file_open() - This is the driver open function.
++ * @inode:	Pointer to the inode structure of this device.
++ * @file:	Pointer to the file structure.
++ * Return:      Success(=0) or error status(<0).
++ */
++static int plmem_driver_file_open(struct inode *inode, struct file *file)
++{
++	struct plmem_driver_data *this;
++	int status = 0;
++	u32 minor;
++
++	this = container_of(inode->i_cdev, struct plmem_driver_data, cdev);
++	file->private_data = this;
++	/* dma buffer allocation */
++	this->virt_addr = dma_alloc_coherent(this->dma_dev, this->alloc_size,
++					     &(this->phys_addr), GFP_KERNEL);
++	if (IS_ERR_OR_NULL(this->virt_addr)) {
++		dev_err(this->dma_dev, "%s dma_alloc_coherent() failed\n",
++			__func__);
++		this->virt_addr = NULL;
++		return -ENOMEM;
++	}
++
++	minor = MINOR(this->device_number);
++	return status;
++}
++
++/**
++ * plmem_driver_file_release() - This is the driver release function.
++ * @inode:	Pointer to the inode structure of this device.
++ * @file:	Pointer to the file structure.
++ * Return:      Success(=0) or error status(<0).
++ */
++static int plmem_driver_file_release(struct inode *inode, struct file *file)
++{
++	struct plmem_driver_data *this = file->private_data;
++	/* Terminate DMA transfer and reset required flags */
++	dmaengine_terminate_all(this->chan);
++	return 0;
++}
++
++/**
++ * plmem_driver_file_mmap() - This is the driver memory map function.
++ * @file:	Pointer to the file structure.
++ * @vma:        Pointer to the vm area structure.
++ * Return:      Success(=0) or error status(<0).
++ */
++static int plmem_driver_file_mmap(struct file *file, struct vm_area_struct *vma)
++{
++	struct plmem_driver_data *this = file->private_data;
++
++	if ((file->f_flags & O_SYNC) | (this->sync_mode & SYNC_ALWAYS)) {
++		switch (this->sync_mode & SYNC_MODE_MASK) {
++		case SYNC_MODE_NONCACHED:
++			vma->vm_flags    |= VM_IO;
++			vma->vm_page_prot = _PGPROT_NONCACHED(
++						vma->vm_page_prot);
++			break;
++		case SYNC_MODE_WRITECOMBINE:
++			vma->vm_flags    |= VM_IO;
++			vma->vm_page_prot = _PGPROT_WRITECOMBINE(
++						vma->vm_page_prot);
++			break;
++		case SYNC_MODE_DMACOHERENT:
++			vma->vm_flags    |= VM_IO;
++			vma->vm_page_prot = _PGPROT_DMACOHERENT(
++						vma->vm_page_prot);
++			break;
++		default:
++			break;
++		}
++	}
++	vma->vm_private_data = this;
++	vma->vm_pgoff = 0;
++	return dma_mmap_coherent(this->dma_dev, vma, this->virt_addr,
++				 this->phys_addr, this->alloc_size);
++}
++
++/**
++ * plmem_driver_dma_read_done() - This is the dma read done event handler.
++ * @void:	Pointer to the private data structure.
++ */
++static void plmem_driver_dma_read_done(void *data)
++{
++	struct plmem_driver_data *this = data;
++	/* send transfer done event */
++	complete(&this->complete);
++}
++
++/**
++ * plmem_driver_file_read() - This is the driver read function.
++ * @file:	Pointer to the file structure.
++ * @buff:	Pointer to the user buffer.
++ * @count:	The number of bytes to be written.
++ * @ppos:	Pointer to the offset value.
++ * Return:	Transferred size.
++ */
++static ssize_t plmem_driver_file_read(struct file *file, char __user *buff,
++				      size_t count, loff_t *ppos)
++{
++	struct plmem_driver_data *this = file->private_data;
++	struct dma_async_tx_descriptor *desc;
++	dma_cookie_t cookie;
++
++	if (this->is_dac) {
++		dev_err(this->dma_dev, "%s Not a adc device\n", __func__);
++		return -EINVAL;
++	}
++
++	pr_err("this->mem_type = %d, count = %ld\n", this->mem_type, count);
++	if (this->mem_type == DDR) {
++		desc = dmaengine_prep_slave_single(this->chan,
++				this->phys_addr, count,
++				DMA_DEV_TO_MEM, 0);
++		if (!desc) {
++			dev_err(this->dma_dev, "%s Failed to initiate DMA\n",
++					__func__);
++			return -ENOMEM;
++		}
++		desc->callback = plmem_driver_dma_read_done;
++		desc->callback_param = this;
++		cookie = dmaengine_submit(desc);
++		if (dma_submit_error(cookie)) {
++			dev_err(this->dma_dev, "%s Failed to submit DMA %d\n",
++					__func__, cookie);
++			return -EINVAL;
++		}
++		/* re-initialize the completion variable */
++		reinit_completion(&this->complete);
++		/* Start DMA */
++		dma_async_issue_pending(this->chan);
++		/* wait for done event */
++		wait_for_completion(&this->complete);
++	} else {
++		dev_err(this->dma_dev, "%s Unsupported memtype : %d\n", __func__, this->mem_type);
++		return -EINVAL;
++	}
++	return 0;
++}
++
++/**
++ * plmem_driver_dma_write_done() - This is the dma read done event handler.
++ * @void:	Pointer to the private data structure.
++ */
++static void plmem_driver_dma_write_done(void *data)
++{
++	struct plmem_driver_data *this = data;
++	/* send transfer done event */
++	complete(&this->complete);
++}
++
++/**
++ * plmem_driver_file_write() - This is the driver write function.
++ * @file:	Pointer to the file structure.
++ * @buff:	Pointer to the user buffer.
++ * @count:	The number of bytes to be written.
++ * @ppos:	Pointer to the offset value
++ * Return:	Transferred size.
++ */
++static ssize_t plmem_driver_file_write(struct file *file,
++				       const char __user *buff,
++				       size_t count, loff_t *ppos)
++{
++	struct plmem_driver_data *this = file->private_data;
++	struct dma_async_tx_descriptor *desc;
++	dma_cookie_t cookie;
++
++	if (this->is_dac == 0) {
++		dev_err(this->dma_dev, "%s Not a dac device\n", __func__);
++		return -EINVAL;
++	}
++	if (this->mem_type >= MAX) {
++		dev_err(this->dma_dev, "%s Invalid mem type\n", __func__);
++		return -EINVAL;
++	}
++
++	if (this->mem_type == DDR) {
++		pr_err("count = %ld\n", count);
++		desc = dmaengine_prep_dma_cyclic(this->chan,
++				this->phys_addr, count,
++				(count / 2), DMA_MEM_TO_DEV, 0);
++		if (!desc) {
++			dev_err(this->dma_dev, "%s Failed to initiate DMA\n",
++					__func__);
++			return -ENOMEM;
++		}
++		desc->callback = plmem_driver_dma_write_done;
++		desc->callback_param = this;
++		cookie = dmaengine_submit(desc);
++		if (dma_submit_error(cookie)) {
++			dev_err(this->dma_dev, "%s Failed to submit DMA %d\n",
++					__func__, cookie);
++			return -EINVAL;
++		}
++		/* re-initialize the completion variable */
++		reinit_completion(&this->complete);
++		/* Start DMA */
++		dma_async_issue_pending(this->chan);
++		/* wait for done event */
++		wait_for_completion(&this->complete);
++	} else {
++		dev_err(this->dma_dev, "%s Unsupported memtype\n", __func__);
++		return -EINVAL;
++	}
++	return 0;
++}
++
++static int plmem_driver_file_fsync(struct file *file, loff_t size, loff_t size1,
++				   int datasync)
++{
++	struct plmem_driver_data *this = file->private_data;
++
++	dev_dbg(this->dma_dev, " %s\n", __func__);
++	/* Terminate DMA transfer and reset required flags */
++	dmaengine_terminate_all(this->chan);
++	return 0;
++}
++
++static const struct file_operations plmem_driver_file_ops = {
++	.owner   = THIS_MODULE,
++	.open    = plmem_driver_file_open,
++	.release = plmem_driver_file_release,
++	.mmap    = plmem_driver_file_mmap,
++	.read    = plmem_driver_file_read,
++	.write   = plmem_driver_file_write,
++	.fsync   = plmem_driver_file_fsync,
++};
++
++/**
++ * plmem_driver_create() -  Create plmem driver data structure.
++ * @name:       device name   or NULL.
++ * @parent:     parent device or NULL.
++ * @minor:	minor_number.
++ * @size:	buffer size.
++ * @channel:    DMA channel name
++ * Return:      Pointer to the plmem driver data structure or NULL.
++ *
++ * It does all the memory allocation and registration for the device.
++ */
++static struct plmem_driver_data *plmem_driver_create(const char *name,
++						     struct device *parent,
++						     u32 minor, u32 size,
++						     char *channel)
++{
++	struct plmem_driver_data *this = NULL;
++	const unsigned int DONE_ALLOC_MINOR   = (1 << 0);
++	const unsigned int DONE_CHRDEV_ADD    = (1 << 1);
++	const unsigned int DONE_ALLOC_CMA     = (1 << 2);
++	const unsigned int DONE_DEVICE_CREATE = (1 << 3);
++	struct dma_chan *chan;
++	int ret;
++	unsigned int done = 0;
++
++	/* allocate device minor number */
++	if (minor < DEVICE_MAX_NUM) {
++		if (ida_simple_get(&plmem_device_ida, minor, minor+1,
++				   GFP_KERNEL) < 0) {
++			dev_err(parent, "couldn't allocate minor number(=%d)\n",
++				minor);
++			goto failed;
++		}
++	} else {
++		dev_err(parent, "invalid minor num(=%d),valid range: 0 to %d\n",
++			minor, DEVICE_MAX_NUM-1);
++		goto failed;
++	}
++	done |= DONE_ALLOC_MINOR;
++	/* create (plmem_driver_data*) this. */
++	this = kzalloc(sizeof(*this), GFP_KERNEL);
++	if (IS_ERR_OR_NULL(this))
++		goto failed;
++	/* make this->device_number and this->size */
++	this->device_number = MKDEV(MAJOR(plmem_device_number), minor);
++	this->size          = size;
++	this->alloc_size    = (((size + ((1 << PAGE_SHIFT) - 1)) >> PAGE_SHIFT)
++				<< PAGE_SHIFT);
++	this->sync_mode     = SYNC_MODE_NONCACHED;
++	/* register /sys/class/udmabuf/udmabuf[0..n] */
++	this->sys_dev = device_create(plmem_sys_class,
++			parent,
++			this->device_number,
++			(void *)this,
++			DEVICE_NAME_FORMAT, MINOR(this->device_number));
++
++	if (IS_ERR_OR_NULL(this->sys_dev)) {
++		this->sys_dev = NULL;
++		goto failed;
++	}
++	done |= DONE_DEVICE_CREATE;
++
++	/* setup dma_dev */
++	this->dma_dev = parent;
++
++	of_dma_configure(this->dma_dev, NULL, true);
++	dma_set_mask(this->dma_dev, DMA_BIT_MASK(sizeof(dma_addr_t) * 8));
++	dma_set_coherent_mask(this->dma_dev,
++			      DMA_BIT_MASK(sizeof(dma_addr_t) * 8));
++
++	done |= DONE_ALLOC_CMA;
++
++	/* add chrdev */
++	cdev_init(&this->cdev, &plmem_driver_file_ops);
++	this->cdev.owner = THIS_MODULE;
++	if (cdev_add(&this->cdev, this->device_number, MAX_INSTANCES) != 0) {
++		dev_err(parent, "cdev_add() failed\n");
++		goto failed;
++	}
++	done |= DONE_CHRDEV_ADD;
++
++	dev_err(this->sys_dev, "major number   = %d\n",
++		 MAJOR(this->device_number));
++	dev_err(this->sys_dev, "minor number   = %d\n",
++		MINOR(this->device_number));
++	dev_err(this->sys_dev, "buffer size    = %zu\n", this->alloc_size);
++	if ((MINOR(this->device_number) == 0) ||
++		(MINOR(this->device_number) == MAX_DAC)) {
++		chan = dma_request_chan(parent, channel);
++		if (IS_ERR(chan)) {
++			ret = PTR_ERR(chan);
++			dev_err(this->dma_dev, "%s DMA request channel failed:%d\n",
++					__func__, ret);
++			goto failed;
++		}
++		if ((MINOR(this->device_number) == 0))
++			chan_dac = chan;
++		else
++			chan_adc = chan;
++	} else {
++		if (strcmp(channel, "dac") == 0)
++			chan = chan_dac;
++		else
++			chan = chan_adc;
++	}
++	this->chan = chan;
++	this->mem_type = BRAM;
++	init_completion(&this->complete);
++
++	return this;
++failed:
++	if (done & DONE_CHRDEV_ADD)
++		cdev_del(&this->cdev);
++	if (done & DONE_ALLOC_CMA)
++		dma_free_coherent(this->dma_dev, this->alloc_size,
++				  this->virt_addr, this->phys_addr);
++	if (done & DONE_DEVICE_CREATE)
++		device_destroy(plmem_sys_class, this->device_number);
++	if (done & DONE_ALLOC_MINOR)
++		ida_simple_remove(&plmem_device_ida, minor);
++	if (this != NULL)
++		kfree(this);
++	return NULL;
++}
++
++static ssize_t plmem_show_mem_type(struct device *dev,
++			    struct device_attribute *attr,
++			    char *buf)
++{
++	struct plmem_driver_data *this = dev_get_drvdata(dev);
++
++	return sprintf(buf, "%d", this->mem_type);
++}
++
++static ssize_t plmem_store_mem_type(struct device *dev,
++			     struct device_attribute *attr,
++			     const char *buf, size_t len)
++{
++	struct plmem_driver_data *this = dev_get_drvdata(dev);
++	long val;
++	int ret;
++
++	if (kstrtoul(buf, 0, &val))
++		return -EINVAL;
++
++	if (val < 0)
++		return -EINVAL;
++
++	this->mem_type = val;
++	dev_dbg(dev, "this->mem_type = %d\n", this->mem_type);
++	return sizeof(ret);
++}
++
++static ssize_t plmem_show_selected_mem(struct device *dev,
++			    struct device_attribute *attr,
++			    char *buf)
++{
++	struct plmem_driver_data *this = dev_get_drvdata(dev);
++
++	return sprintf(buf, "%d", this->mem_used);
++}
++
++static ssize_t plmem_store_selected_mem(struct device *dev,
++			     struct device_attribute *attr,
++			     const char *buf, size_t len)
++{
++	struct resource mem_res;
++	struct plmem_driver_data *this = dev_get_drvdata(dev);
++	struct device_node *mem_node;
++	unsigned long val;
++	int ret;
++
++	if (kstrtoul(buf, 0, &val))
++		return -EINVAL;
++
++	switch (val) {
++	case PL_MEM:
++		/* setup dma_mask and coherent_dma_mask */
++		dma_set_mask(this->dma_dev,
++			     DMA_BIT_MASK(sizeof(dma_addr_t) * 8));
++		dma_set_coherent_mask(this->dma_dev,
++				      DMA_BIT_MASK(sizeof(dma_addr_t) * 8));
++		this->mem_used = PL_MEM;
++		/* Decleare memory as coherent */
++		mem_node = of_parse_phandle(dev->of_node,
++					    "xlnx,dedicated-pl-mem", 0);
++		dev_dbg(dev, "Declearing PL DDR as coherent memory\n");
++		if (mem_node) {
++			ret = of_address_to_resource(mem_node, 0, &mem_res);
++			if (!ret) {
++				dev_dbg(dev, "Declearing coherent memory\n");
++				ret = dma_declare_coherent_memory(dev,
++						mem_res.start, mem_res.start,
++						resource_size(&mem_res));
++				if (ret < 0) {
++					dev_err(dev, "fail: decl coheret: %d\n",
++						ret);
++					return -EINVAL;
++				}
++			}
++		}
++		of_node_put(mem_node);
++		break;
++	case PS_MEM:
++		this->mem_used = PS_MEM;
++		/* setup dma_mask and coherent_dma_mask */
++		dma_set_mask(this->dma_dev, DMA_BIT_MASK(32));
++		dma_set_coherent_mask(this->dma_dev, DMA_BIT_MASK(32));
++		dev_dbg(dev, "Declearing PS DDR as coherent memory\n");
++		break;
++	case NO_MEM:
++		dev_dbg(dev, "Releasing coherent memory\n");
++		/* Release coherent memory and undeclare as coherent */
++		this->mem_used = NO_MEM;
++		dma_free_coherent(this->dma_dev, this->alloc_size,
++				  this->virt_addr, this->phys_addr);
++//		dma_release_coherent_memory(dev->dma_mem);
++		dev->dma_mem = NULL;
++		this->virt_addr = NULL;
++		break;
++	default:
++		dev_err(dev, "%lu: invalid memory type (1, 2)\n", val);
++		return -EINVAL;
++	}
++
++	return (sizeof(ret));
++}
++
++static DEVICE_ATTR(select_mem, S_IRUGO | S_IWUSR,
++		   plmem_show_selected_mem, plmem_store_selected_mem);
++
++
++static DEVICE_ATTR(mem_type, S_IRUGO | S_IWUSR,
++		   plmem_show_mem_type, plmem_store_mem_type);
++
++static struct attribute *plmem_attributes[] = {
++	&dev_attr_select_mem.attr,
++	&dev_attr_mem_type.attr,
++	NULL,
++};
++
++static const struct attribute_group plmem_attr_group = {
++	.attrs = plmem_attributes,
++};
++
++/**
++ * plmem_platform_driver_probe() -  Probe call for the device.
++ * @pdev:	handle to the platform device structure.
++ * Return:      Success(=0) or error status(<0).
++ *
++ * It does all the memory allocation and registration for the device.
++ */
++static int plmem_platform_driver_probe(struct platform_device *pdev)
++{
++	int retval = 0;
++	u32 minor_number = 0;
++	struct plmem_driver_data *driver_data;
++	int status;
++	int ret;
++	u32 size;
++	char channel[5];
++	bool is_dac;
++
++	status = of_property_read_u32(pdev->dev.of_node, "minor-number",
++				      &minor_number);
++	if (status != 0) {
++		dev_err(&pdev->dev, "invalid property minor number.\n");
++		retval = -ENODEV;
++		goto failed;
++	}
++	status = of_property_read_u32(pdev->dev.of_node, "size", &size);
++	if (status != 0) {
++		dev_err(&pdev->dev, "invalid property size.\n");
++		retval = -ENODEV;
++		goto failed;
++	}
++	/* get device number */
++	is_dac = of_property_read_bool(pdev->dev.of_node, "xlnx,dac-device");
++	if (is_dac)
++		strcpy(channel, "dac");
++	else
++		strcpy(channel, "adc");
++	/* create (plmem_driver_data*)this. */
++	driver_data = plmem_driver_create(DRIVER_NAME, &pdev->dev,
++					  minor_number, size, channel);
++	if (IS_ERR_OR_NULL(driver_data)) {
++		dev_err(&pdev->dev, "driver create fail ret : %ld\n",
++			PTR_ERR(driver_data));
++		retval = -EPROBE_DEFER;
++		goto failed;
++	}
++	driver_data->is_dac = is_dac;
++	ret = sysfs_create_group(&pdev->dev.kobj, &plmem_attr_group);
++	if (ret) {
++		dev_err(&pdev->dev, "sysfs creation failed\n");
++		return ret;
++	}
++	dev_set_drvdata(&pdev->dev, driver_data);
++	return 0;
++failed:
++	dev_info(&pdev->dev, "driver install failed.\n");
++	return retval;
++}
++
++/**
++ * plmem_driver_destroy() -  Remove the plmem driver data structure.
++ * @this:       Pointer to the plmem driver data structure.
++ * Return:      Success(=0) or error status(<0).
++ *
++ * Unregister the device after releasing the resources.
++ */
++static int plmem_driver_destroy(struct plmem_driver_data *this)
++{
++	if (!this)
++		return -ENODEV;
++
++	dma_free_coherent(this->dma_dev, this->alloc_size, this->virt_addr,
++			  this->phys_addr);
++	if (MINOR(this->device_number) == 0)
++		dma_release_channel(chan_dac);
++	else if (MINOR(this->device_number) == MAX_DAC)
++		dma_release_channel(chan_adc);
++	sysfs_remove_group(&this->dma_dev->kobj, &plmem_attr_group);
++	cdev_del(&this->cdev);
++	device_destroy(plmem_sys_class, this->device_number);
++	ida_simple_remove(&plmem_device_ida, MINOR(this->device_number));
++	kfree(this);
++	return 0;
++}
++
++/**
++ * plmem_platform_driver_remove() -  Remove call for the device.
++ * @pdev:	Handle to the platform device structure.
++ * Return:      Success(=0) or error status(<0).
++ *
++ * Unregister the device after releasing the resources.
++ */
++static int plmem_platform_driver_remove(struct platform_device *pdev)
++{
++	struct plmem_driver_data *this = dev_get_drvdata(&pdev->dev);
++	int retval = 0;
++
++	retval = plmem_driver_destroy(this);
++	if (retval != 0)
++		return retval;
++	dev_set_drvdata(&pdev->dev, NULL);
++	return 0;
++}
++
++/**
++ * Open Firmware Device Identifier Matching Table
++ */
++static const struct of_device_id plmem_of_match[] = {
++	{ .compatible = "xlnx,pl-mem", },
++	{ /* end of table */}
++};
++MODULE_DEVICE_TABLE(of, plmem_of_match);
++
++/**
++ * Platform Driver Structure
++ */
++static struct platform_driver plmem_platform_driver = {
++	.probe  = plmem_platform_driver_probe,
++	.remove = plmem_platform_driver_remove,
++	.driver = {
++		.owner = THIS_MODULE,
++		.name  = DRIVER_NAME,
++		.of_match_table = plmem_of_match,
++	},
++};
++
++
++/**
++ * plmem_module_exit()
++ */
++static void plmem_module_exit(void)
++{
++
++	if (plmem_platform_driver_done)
++		platform_driver_unregister(&plmem_platform_driver);
++	if (plmem_device_number != 0)
++		unregister_chrdev_region(plmem_device_number, 0);
++	ida_destroy(&plmem_device_ida);
++}
++
++/**
++ * plmem_module_init()
++ */
++static int __init plmem_module_init(void)
++{
++	int retval = 0;
++
++	ida_init(&plmem_device_ida);
++	retval = alloc_chrdev_region(&plmem_device_number, 0, MAX_INSTANCES,
++				     DRIVER_NAME);
++	if (retval != 0) {
++		pr_err("%s: couldn't allocate device major number\n",
++		       DRIVER_NAME);
++		plmem_device_number = 0;
++		goto failed;
++	}
++	plmem_sys_class = class_create(THIS_MODULE, DRIVER_NAME);
++	if (IS_ERR_OR_NULL(plmem_sys_class)) {
++		pr_err("%s: couldn't create sys class\n", DRIVER_NAME);
++		retval = PTR_ERR(plmem_sys_class);
++		plmem_sys_class = NULL;
++		goto failed;
++	}
++	retval = platform_driver_register(&plmem_platform_driver);
++	if (retval)
++		pr_err("%s: couldn't register platform driver\n", DRIVER_NAME);
++	else
++		plmem_platform_driver_done = 1;
++	return 0;
++failed:
++	plmem_module_exit();
++	return retval;
++}
++
++late_initcall(plmem_module_init);
++module_exit(plmem_module_exit);
++
++MODULE_AUTHOR("Xilinx, Inc.");
++MODULE_DESCRIPTION("User space mappable PL DMA buffer device driver");
++MODULE_LICENSE("GPL v2");
+-- 
+2.7.4
+
