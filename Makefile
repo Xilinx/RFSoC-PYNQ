@@ -8,7 +8,7 @@ BSP_DST := ${CURDIR}/boards/${BOARD}/${BOARD}.bsp
 BASE_OVERLAY_PATH := ${CURDIR}/boards/${BOARD}/base
 BASE_OVERLAY := ${BASE_OVERLAY_PATH}/base.bit
 
-VERSION := 3.0.0
+VERSION := 3.0.1
 IMAGE := ${BOARD}-${VERSION}.img
 
 all: checkenv_rfsocpynq gitsubmodule ${PREBUILT_SDIST_DST} ${PREBUILT_ROOTFS_DST} checkenv_pynq ${BASE_OVERLAY} ${IMAGE}
@@ -31,10 +31,10 @@ endif
 endif
 
 ${PREBUILT_SDIST_DST}:
-	wget https://github.com/Xilinx/pynq/releases/download/v2.7.0/pynq-2.7.0.tar.gz -O ${PREBUILT_SDIST_DST}
+	wget https://github.com/Xilinx/PYNQ/releases/download/v3.0.1/pynq-3.0.1.tar.gz -O ${PREBUILT_SDIST_DST}
 
 ${PREBUILT_ROOTFS_DST}:
-	wget https://bit.ly/pynq_aarch64_2_7 -O ${PREBUILT_ROOTFS_DST}
+	wget https://bit.ly/pynq_aarch64_v3_0_1 -O ${PREBUILT_ROOTFS_DST}
 
 checkenv_pynq:
 	${CURDIR}/pynq/sdbuild/scripts/check_env.sh
