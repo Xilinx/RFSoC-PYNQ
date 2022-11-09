@@ -19,10 +19,10 @@ In this tutorial we present a single board, fully integrated Software Defined Ra
   <tbody> 
     <tr>
       <td class="td1-gallery" style="border: 0px; background:transparent">
-        <iframe src="https://www.youtube.com/embed/tNuvpKsuH-4" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" width="100%" height="100%" frameborder="0"></iframe>
+        <iframe class="you-container" src="https://www.youtube.com/embed/tNuvpKsuH-4" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" frameborder="0"></iframe>
       </td>
       <td class="td1-gallery" style="border: 0px; background:transparent">
-        <iframe src="https://www.youtube.com/embed/afC_eLvFAFQ" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" width="100%" height="100%" frameborder="0"></iframe>
+        <iframe class="you-container" src="https://www.youtube.com/embed/afC_eLvFAFQ" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" frameborder="0"></iframe>
       </td>
     </tr>
     <tr>
@@ -35,10 +35,10 @@ In this tutorial we present a single board, fully integrated Software Defined Ra
     </tr> 
     <tr>
       <td class="td1-gallery" style="border: 0px; background:transparent">
-        <iframe src="https://www.youtube.com/embed/B0-s7gORKrA" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" width="100%" height="100%" frameborder="0"></iframe>
+        <iframe class="you-container" src="https://www.youtube.com/embed/B0-s7gORKrA" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" frameborder="0"></iframe>
       </td>
       <td class="td1-gallery" style="border: 0px; background:transparent">
-        <iframe src="https://www.youtube.com/embed/gsKRW_U_evg" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" width="100%" height="100%" frameborder="0"></iframe>
+        <iframe class="you-container" src="https://www.youtube.com/embed/gsKRW_U_evg" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" frameborder="0"></iframe>
       </td>
     </tr>
     <tr>
@@ -51,10 +51,10 @@ In this tutorial we present a single board, fully integrated Software Defined Ra
     </tr> 
     <tr>
       <td class="td1-gallery" style="border: 0px; background:transparent">
-        <iframe src="https://www.youtube.com/embed/T9mn71auSNA" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" width="100%" height="100%" frameborder="0"></iframe>
+        <iframe class="you-container" src="https://www.youtube.com/embed/T9mn71auSNA" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" frameborder="0"></iframe>
       </td>
       <td class="td1-gallery" style="border: 0px; background:transparent">
-        <iframe src="https://www.youtube.com/embed/1Bh-bIVZgrs" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" width="100%" height="100%" frameborder="0"></iframe>
+        <iframe class="you-container" src="https://www.youtube.com/embed/1Bh-bIVZgrs" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" frameborder="0"></iframe>
       </td>
     </tr>
     <tr>
@@ -67,10 +67,10 @@ In this tutorial we present a single board, fully integrated Software Defined Ra
     </tr> 
     <tr>
       <td class="td1-gallery" style="border: 0px; background:transparent">
-        <iframe src="https://www.youtube.com/embed/PqPdfnbNxyY" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" width="100%" height="100%" frameborder="0"></iframe>
+        <iframe class="you-container" src="https://www.youtube.com/embed/PqPdfnbNxyY" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" frameborder="0"></iframe>
       </td>
       <td class="td1-gallery" style="border: 0px; background:transparent">
-        <iframe src="https://www.youtube.com/embed/tSfsRVqALIw" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" width="100%" height="100%" frameborder="0"></iframe>
+        <iframe class="you-container" src="https://www.youtube.com/embed/tSfsRVqALIw" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" frameborder="0"></iframe>
       </td>
     </tr>
     <tr>
@@ -83,10 +83,10 @@ In this tutorial we present a single board, fully integrated Software Defined Ra
     </tr> 
     <tr>
       <td class="td1-gallery" style="border: 0px; background:transparent">
-        <iframe src="https://www.youtube.com/embed/WV-sX-eZAt8" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" width="100%" height="100%" frameborder="0"></iframe>
+        <iframe class="you-container" src="https://www.youtube.com/embed/WV-sX-eZAt8" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" frameborder="0"></iframe>
       </td>
       <td class="td1-gallery" style="border: 0px; background:transparent">
-        <iframe src="https://www.youtube.com/embed/AXWiOQ4IKN4" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" width="100%" height="100%" frameborder="0"></iframe>
+        <iframe class="you-container" src="https://www.youtube.com/embed/AXWiOQ4IKN4" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" frameborder="0"></iframe>
       </td>
     </tr>
     <tr>
@@ -99,7 +99,7 @@ In this tutorial we present a single board, fully integrated Software Defined Ra
     </tr>
     <tr>
       <td class="td1-gallery" style="border: 0px; background:transparent">
-        <iframe src="https://www.youtube.com/embed/TeplpLoGDwM" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" width="100%" height="100%" frameborder="0"></iframe>
+        <iframe class="you-container" src="https://www.youtube.com/embed/TeplpLoGDwM" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" frameborder="0"></iframe>
       </td>
       <td style="border: 0px; background:transparent">
       </td>
@@ -121,7 +121,7 @@ Speakers: Patrick Lysaght (Xilinx Research Labs), Prof. Robert W. Stewart (Unive
 
 The benefits of integrating direct RF sampling data converters were demonstrated by introducing a novel, open-source spectrum analyzer built using the new board. This RFSoC design exploits advanced signal processing techniques, including higher-order Nyquist zones, to demonstrate performance that has only previously been achieved on very high-end instrumentation. Using the spectrum analyzer example, we will also demonstrate new approaches to the rapid prototyping of graphical user interfaces for research demonstrators.
 
-<div class="you-container3"><iframe src="https://www.youtube.com/embed/73iypldwZ2I" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" width="100%" height="100%" frameborder="0"></iframe></div>
+<div><iframe class="you-container2" src="https://www.youtube.com/embed/73iypldwZ2I" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" frameborder="0"></iframe></div>
 
 
 ## Presentations (PDF) & links to video sections

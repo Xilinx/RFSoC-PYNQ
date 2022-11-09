@@ -91,148 +91,6 @@ video {
     vertical-align: baseline
 }
 
-.logo {
-    font-size: 25px
-}
-
-body {
-    padding: 0px 0 20px 0px;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    color: #4a4a4a;
-    background-color: #FBFAF7;
-    line-height: 1.8em;
-    -webkit-font-smoothing: antialiased
-}
-
-.section1 {
-    width: 1000px;
-    float: right;
-    padding-bottom: 50px;
-    text-align: center;
-}
-
-.wrapper ul {
-    padding-left: 40px;
-}
-
-p-list {
-    display: block;
-}
-
-@media print,
-screen and (min-width: 1201px) {
-    nav {
-        background-color: #171717;
-        color: #FDFDFB;
-        width: 165px;
-        float: left;
-        position: fixed;
-        -webkit-border-top-right-radius: 4px;
-        -webkit-border-bottom-right-radius: 4px;
-        -moz-border-radius-topright: 4px;
-        -moz-border-radius-bottomright: 4px;
-        border-top-right-radius: 4px;
-        border-bottom-right-radius: 4px;
-        padding: 0px 0px 6px 4px;
-        -webkit-font-smoothing: antialiased;
-        z-index: 9999
-    }
-    .listedpages {
-        color: #fff;
-        list-style-type: circle;
-        width: 150px;
-        height: 13px;
-        margin-bottom: 2px;
-        line-height: 1em;
-        padding: 5px 5px 5px 5px;
-        background: #AF0011;
-        background: -moz-linear-gradient(top, #AF0011 0%, #820011 100%);
-        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f8f8f8), color-stop(100%, #ddd));
-        background: -webkit-linear-gradient(top, #AF0011 0%, #820011 100%);
-        background: -o-linear-gradient(top, #AF0011 0%, #820011 100%);
-        background: -ms-linear-gradient(top, #AF0011 0%, #820011 100%);
-        background: linear-gradient(to top, #AF0011 0%, #820011 100%);
-        border-radius: 6px;
-        border: 1px solid #0D0D0D;
-        -webkit-box-shadow: inset 0px 1px 1px 0 #e90226;
-        box-shadow: inset 0px 1px 1px 0 #e90226
-    }
-    .listedpages:hover {
-        background: #C3001D;
-        background: -moz-linear-gradient(top, #C3001D 0%, #950119 100%);
-        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f8f8f8), color-stop(100%, #ddd));
-        background: -webkit-linear-gradient(top, #C3001D 0%, #950119 100%);
-        background: -o-linear-gradient(top, #C3001D 0%, #950119 100%);
-        background: -ms-linear-gradient(top, #C3001D 0%, #950119 100%);
-        background: linear-gradient(to top, #C3001D 0%, #950119 100%);
-        text-decoration: underline
-    }
-    .show {
-        color: #fff;
-        #font-family: Arvo, sans-serif;
-        font-size: 18px;
-        font-weight: 300;
-        line-height: 1.5em;
-        border-bottom: none;
-        margin-top: 0
-    }
-    .you-container1 {
-        position: relative;
-        padding-bottom: 0px;
-        height: 400px;
-        overflow: hidden;
-        padding-top: 0px;
-        width: 70%;
-    }
-    .you-container2 {
-        position: relative;
-        padding-bottom: 0px;
-        height: 400px;
-        overflow: hidden;
-        padding-top: 50px;
-        width: 70%;
-    }
-    .you-container3 {
-        position: relative;
-        padding-bottom: 0px;
-        height: 400px;
-        overflow: hidden;
-        padding-top: 0px;
-        width: 70%;
-        padding-top: 15px;
-    }
-    .otherheading,
-    .icon,
-    input {
-        display: none
-    }
-    .section1 {
-        width: 1000px;
-        float: right;
-        padding-bottom: 50px;
-        text-align: center;
-    }
-    .td1-gallery{
-        height: 300px;
-        background-color: transparent;
-        background: transparent;
-        text-align: center;
-        border: 0px;
-        padding-bottom: 5px;
-        width: 50%;
-    }
-    .td2-gallery{
-        background-color: transparent;
-        background: transparent;
-        text-align: center;
-        border: 0px;
-        padding-bottom: 5px;
-        width: 50%;
-        padding-bottom: 15px;
-    }
-}
-
 h1,
 h2,
 h3,
@@ -273,6 +131,29 @@ h1 {
 
 h2 {
     font-size: 24px
+}
+
+.you-container {
+    padding-bottom: 10px;
+    overflow: hidden;
+    padding-top: 10px;
+    position: relative;
+    width: 100%;
+    max-width: 462.22pxpx;
+    aspect-ratio: 16/9;
+    height: auto;
+    max-height: 260px
+}
+
+.you-container2 {
+    padding-bottom: 10px;
+    overflow: hidden;
+    padding-top: 10px;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+    height: auto;
+    max-width: 1000px;
 }
 
 h3 {
@@ -363,9 +244,9 @@ img {
     position: relative;
     margin: 0 auto;
     max-width: 1000px;
-    padding: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     margin: 10px 0 10px 0;
-    #border: 1px solid #ccc
 }
 
 p img,
@@ -403,7 +284,6 @@ table {
 
 table {
     border: 1px solid #ccc;
-	 #border-collapse: collapse;
     margin-bottom: 32px;
     text-align: left
 }
@@ -419,8 +299,8 @@ th {
 
 td {
     padding: 10px;
-    #font-size: 14px;
-    background: #FBFAF7
+    font-size: 14px;
+    background: #ccc
 }
 
 .menu-text {
@@ -431,40 +311,26 @@ td {
     width: 1200px
 }
 
-/*
 a.buttons {
     -webkit-font-smoothing: antialiased;
-    background: url(../img/arrow-down.png) no-repeat;
+    background: url(../images/arrow-down.png) no-repeat;
     font-weight: normal;
     padding: 2px 2px 2px 22px;
     height: 30px
 }
-*/
 
 a.github {
-    background: url(../img/mask-small.png) no-repeat 1px;
-    padding: 2px 2px 2px 22px;
+    background: url(../img/mask-small.png) no-repeat 1px
 }
-
-/*
-a.youtube {
-    background: url(../img/youtube.png) no-repeat 1px;
-    background-position: right;
-    padding: 2px 2px 2px 28px
-}
-*/
-
-/*
-a.pynq {
-    background: url(../img/pynq.png) no-repeat 1px;
-    padding: 2px 2px 2px 55px
-}
-*/
 
 section {
     width: 1000px;
     float: right;
     padding-bottom: 50px
+}
+
+br.imgbr{
+    clear: right;
 }
 
 footer {
@@ -475,14 +341,122 @@ footer {
     padding-left: 25px
 }
 
+.logo {
+    font-size: 28px
+}
+
+body {
+    padding: 0px 0 20px 0px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: #4a4a4a;
+    background-color: #FBFAF7;
+    line-height: 1.8em;
+    -webkit-font-smoothing: antialiased
+}
+
+.section1 {
+    width: 1000px;
+    float: right;
+    padding-bottom: 50px;
+    text-align: center;
+}
+
+.wrapper ul {
+    padding-left: 40px;
+}
+
+p-list {
+    display: block;
+}
+
+@media print,
+screen and (min-width: 1201px) {
+    nav {
+        background-color: #171717;
+        color: #FDFDFB;
+        width: 165px;
+        float: left;
+        position: fixed;
+        -webkit-border-top-right-radius: 4px;
+        -webkit-border-bottom-right-radius: 4px;
+        -moz-border-radius-topright: 4px;
+        -moz-border-radius-bottomright: 4px;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+        padding: 0px 0px 6px 4px;
+        -webkit-font-smoothing: antialiased;
+        z-index: 9999
+    }
+    .listedpages {
+        color: #fff;
+        list-style-type: circle;
+        width: 150px;
+        height: 13px;
+        margin-bottom: 2px;
+        line-height: 1em;
+        padding: 5px 5px 5px 5px;
+        background: #AF0011;
+        background: -moz-linear-gradient(top, #AF0011 0%, #820011 100%);
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f8f8f8), color-stop(100%, #ddd));
+        background: -webkit-linear-gradient(top, #AF0011 0%, #820011 100%);
+        background: -o-linear-gradient(top, #AF0011 0%, #820011 100%);
+        background: -ms-linear-gradient(top, #AF0011 0%, #820011 100%);
+        background: linear-gradient(to top, #AF0011 0%, #820011 100%);
+        border-radius: 6px;
+        border: 1px solid #0D0D0D;
+        -webkit-box-shadow: inset 0px 1px 1px 0 #e90226;
+        box-shadow: inset 0px 1px 1px 0 #e90226
+    }
+    .listedpages:hover {
+        background: #C3001D;
+        background: -moz-linear-gradient(top, #C3001D 0%, #950119 100%);
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f8f8f8), color-stop(100%, #ddd));
+        background: -webkit-linear-gradient(top, #C3001D 0%, #950119 100%);
+        background: -o-linear-gradient(top, #C3001D 0%, #950119 100%);
+        background: -ms-linear-gradient(top, #C3001D 0%, #950119 100%);
+        background: linear-gradient(to top, #C3001D 0%, #950119 100%);
+        text-decoration: underline
+    }
+    .show {
+        color: #fff;
+        font-family: Arvo, sans-serif;
+        font-size: 18px;
+        font-weight: 300;
+        line-height: 1.3em;
+        border-bottom: none;
+        margin-top: 0
+    }
+    .otherheading,
+    .icon,
+    input {
+        display: none
+    }
+    .section1 {
+        width: 1000px;
+        float: right;
+        padding-bottom: 50px;
+        text-align: center;
+    }
+}
+
+
 @media print,
 screen and (max-width: 1200px) {
+    .nav * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Roboto';
+        z-index: 999999
+    }
     div.wrapper {
         width: auto;
         margin: 0
     }
-    .nav {
-        width: 968px;
+    nav {
+	background: #171717;
+	width: 100%;
     }
     header,
     section,
@@ -525,49 +499,141 @@ screen and (max-width: 1200px) {
     .menu-text {
         color: Red;
     }
-    .you-container1 {
-        position: relative;
-        padding-bottom: 0px;
-        height: 250px;
-        overflow: hidden;
-        padding-top: 0px;
-    }
-    .you-container2 {
-        position: relative;
-        padding-bottom: 0px;
-        height: 250px;
-        overflow: hidden;
-        padding-top: 50px;
-    }
-    .you-container1 {
-        position: relative;
-        padding-bottom: 0px;
-        height: 250px;
-        overflow: hidden;
-        padding-top: 15px;
-    }
     .sometext,
     .buttons-github {
         display: none;
     }
-    .td1-gallery{
-        height: 200px;
-        background-color: transparent;
-        background: transparent;
-        text-align: center;
-        border: 0px;
-        padding-bottom: 5px;
-        width: 50%;
+    .show {
+        color: #ff0000;
+        font-size: 25px;
+        text-decoration: underline;
+        text-decoration: solid;
+        padding-left: 15px
     }
-    .td2-gallery{
-        background-color: transparent;
-        background: transparent;
-        text-align: center;
-        border: 0px;
-        padding-bottom: 5px;
-        width: 50%;
-        padding-bottom: 15px;
+    .show+a,
+    .navbar-ul {
+        display: none
     }
+    [id^=btn]:checked+ul {
+        display: block
+    }
+    nav ul {
+        float: left;
+        padding: 1;
+        list-style: none;
+        margin-right: 5px;
+        position: relative;
+        z-index: 999999
+    }
+    nav:after {
+        content: '';
+        clear: both;
+        display: table
+    }
+    nav .logo {
+        float: left;
+        color: white;
+        font-size: 28px;
+        font-weight: 600;
+        line-height: 70px;
+        padding-bottom: 10px;
+        padding-left: 30px;
+        width: 80%;
+        padding-top: 10px
+    }
+    nav ul li,
+    nav ul ul li {
+        display: block;
+        width: 100%;
+    }
+    nav ul ul {
+        top: 70px;
+        position: static;
+        border-top: none;
+        float: none;
+        display: none;
+        opacity: 1;
+        visibility: visible
+    }
+    nav ul ul ul li {
+        position: static
+    }
+    nav ul ul li {
+	position: relative;
+        margin: 0px;
+        width: 150px;
+        float: none;
+        display: list-item;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.3)
+    }
+    nav ul li a {
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+        padding: 2px 15px
+    }
+
+    nav ul ul a {
+        padding-left: 80px
+    }
+    nav ul ul ul a {
+        padding-left: 160px
+    }
+    nav ul ul li a {
+        line-height: 50px
+    }
+    nav ul ul ul {
+        border-top: none
+    }
+    nav ul li {
+        float: left;
+        background: inline-block;
+        background: #171717;
+        padding-top: 10px;
+        margin: 0 5px;
+        z-index: 999999
+    }
+    nav ul li:hover>ul {
+        top: 70px;
+        opacity: 1;
+        visibility: visible
+    }
+    nav ul ul li a:hover {
+        color: #e00000;
+        box-shadow: none
+    }
+    nav ul ul {
+        position: absolute;
+        top: 80px;
+        border-top: 3px solid #e00000;
+        opacity: 0;
+        visibility: hidden;
+        transition: top .3s;
+        z-index: 999999
+    }
+    .icon {
+        display: block;
+        color: white;
+        position: absolute;
+        right: 40px;
+        padding-top: 25px;
+        line-height: 25px;
+        font-size: 50px;
+        cursor: pointer
+    }
+    nav ul li a:hover {
+        color: #e00000;
+        border-radius: 5px;
+        box-shadow: 0 0 5px #e00000, 0 0 5px #820000
+    }
+    span .fa-plus {
+        margin-left: 40px;
+        font-size: 15px
+    }
+    input {
+        display: none
+    }
+
 }
 
 @media print,
@@ -611,48 +677,9 @@ screen and (max-width: 720px) {
     .menu-text {
         color: red;
     }
-    .you-container1 {
-        position: relative;
-        padding-bottom: 0px;
-        height: 250px;
-        overflow: hidden;
-        padding-top: 0px;
-    }
-    .you-container2 {
-        position: relative;
-        padding-bottom: 0px;
-        height: 250px;
-        overflow: hidden;
-        padding-top: 50px;
-    }
-    .you-container1 {
-        position: relative;
-        padding-bottom: 0px;
-        height: 250px;
-        overflow: hidden;
-        padding-top: 15px;
-    }
     .sometext,
     .buttons-github {
         display: none;
-    }
-    .td1-gallery{
-        height: 150px;
-        background-color: transparent;
-        background: transparent;
-        text-align: center;
-        border: 0px;
-        padding-bottom: 5px;
-        width: 50%;
-    }
-    .td2-gallery{
-        background-color: transparent;
-        background: transparent;
-        text-align: center;
-        border: 0px;
-        padding-bottom: 5px;
-        width: 50%;
-        padding-bottom: 10px;
     }
 }
 
@@ -680,27 +707,6 @@ screen and (max-width: 480px) {
     .faqs {
         display: block;
     }
-    .you-container1 {
-        position: relative;
-        padding-bottom: 0px;
-        height: 250px;
-        overflow: hidden;
-        padding-top: 0px;
-    }
-    .you-container2 {
-        position: relative;
-        padding-bottom: 0px;
-        height: 250px;
-        overflow: hidden;
-        padding-top: 50px;
-    }
-    .you-container3 {
-        position: relative;
-        padding-bottom: 0px;
-        height: 250px;
-        overflow: hidden;
-        padding-top: 10px;
-    }
     .section1 {
         width: 1000px;
         float: right;
@@ -710,24 +716,6 @@ screen and (max-width: 480px) {
     .sometext,
     .buttons-github {
         display: none;
-    }
-    .td1-gallery{
-        height: 75px;
-        background-color: transparent;
-        background: transparent;
-        text-align: center;
-        border: 0px;
-        padding-bottom: 5px;
-        width: 50%;
-    }
-    .td2-gallery{
-        background-color: transparent;
-        background: transparent;
-        text-align: center;
-        border: 0px;
-        padding-bottom: 5px;
-        width: 50%;
-        padding-bottom: 10px;
     }
 }
 
@@ -739,27 +727,6 @@ screen and (max-width: 480px) {
     }
     .buttons-github {
         text-align: center
-    }
-    .you-container1 {
-        position: relative;
-        padding-bottom: 0px;
-        height: 250px;
-        overflow: hidden;
-        padding-top: 0px;
-    }
-    .you-container2 {
-        position: relative;
-        padding-bottom: 0px;
-        height: 250px;
-        overflow: hidden;
-        padding-top: 50px;
-    }
-    .you-container3 {
-        position: relative;
-        padding-bottom: 0px;
-        height: 250px;
-        overflow: hidden;
-        padding-top: 10px;
     }
     .section1 {
         width: 1000px;
@@ -775,307 +742,6 @@ screen and (max-width: 480px) {
 .responsive {
     max-width: 100%;
     height: auto
-}
-
-@media print,
-screen and (max-width: 1200px) {
-    .nav * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Roboto';
-        z-index: 999999
-    }
-    nav {
-        background: #171717;
-        width: 100%
-    }
-    nav:after {
-        content: '';
-        clear: both;
-        display: table
-    }
-    nav .logo {
-        float: left;
-        color: white;
-        font-size: 28px;
-        font-weight: 600;
-        line-height: 70px;
-        padding-left: 60px;
-        padding-top: 20px;
-        padding-bottom: 10px
-    }
-    nav ul {
-        padding: 1;
-        float: right;
-        list-style: none;
-        margin-right: 5px;
-        position: relative;
-        z-index: 999999
-    }
-    nav ul li {
-        float: left;
-        background: inline-block;
-        background: #171717;
-        padding-top: 10px;
-        margin: 0 5px;
-        z-index: 999999
-    }
-    nav ul li a {
-        color: white;
-        text-decoration: none;
-        font-size: 18px;
-        padding: 8px 15px
-    }
-    nav ul li a:hover {
-        color: #e00000;
-        border-radius: 5px;
-        box-shadow: 0 0 5px #e00000, 0 0 5px #820000
-    }
-    nav ul ul li a:hover {
-        color: #e00000;
-        box-shadow: none
-    }
-    nav ul ul {
-        position: absolute;
-        top: 80px;
-        border-top: 3px solid #e00000;
-        opacity: 0;
-        visibility: hidden;
-        transition: top .3s;
-        z-index: 999999
-    }
-    nav ul ul ul {
-        border-top: none
-    }
-    nav ul li:hover>ul {
-        top: 70px;
-        opacity: 1;
-        visibility: visible
-    }
-    nav ul ul li {
-        position: relative;
-        margin: 0px;
-        width: 150px;
-        float: none;
-        display: list-item;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.3)
-    }
-    nav ul ul li a {
-        line-height: 50px
-    }
-    nav ul ul ul li {
-        position: relative;
-        top: -70px;
-        left: 150px
-    }
-    .show {
-        color: #e00000;
-        font-size: 30px;
-        text-decoration: underline;
-        text-decoration: solid
-    }
-    span .fa-plus {
-        margin-left: 40px;
-        font-size: 15px
-    }
-    .icon {
-        padding-top: 15px
-    }
-    .icon,
-    input {
-        display: none
-    }
-    .you-container1 {
-        position: relative;
-        padding-bottom: 0px;
-        height: 250px;
-        overflow: hidden;
-        padding-top: 0px;
-    }
-    .you-container2 {
-        position: relative;
-        padding-bottom: 0px;
-        height: 250px;
-        overflow: hidden;
-        padding-top: 50px;
-    }
-    .section1 {
-        width: 1000px;
-        float: right;
-        padding-bottom: 50px;
-        text-align: center;
-    }
-}
-
-@media all and (max-width: 1200px) {
-    nav ul {
-        margin-right: 5px;
-        float: left
-    }
-    nav .logo {
-        padding-left: 30px;
-        width: 80%;
-        padding-top: 10px
-    }
-    nav ul li,
-    nav ul ul li {
-        display: block;
-        width: 100%
-    }
-    nav ul ul {
-        top: 70px;
-        position: static;
-        border-top: none;
-        float: none;
-        display: none;
-        opacity: 1;
-        visibility: visible
-    }
-    nav ul ul ul li {
-        position: static
-    }
-    nav ul ul li {
-        border-bottom: 0px
-    }
-    nav ul ul a {
-        padding-left: 80px
-    }
-    nav ul ul ul a {
-        padding-left: 160px
-    }
-    .icon {
-        display: block;
-        color: white;
-        position: absolute;
-        right: 40px;
-        padding-top: 35px;
-        line-height: 25px;
-        font-size: 25px;
-        cursor: pointer
-    }
-    nav ul li a:hover {
-        box-shadow: none
-    }
-    .show+a,
-    .navbar-ul {
-        display: none
-    }
-    [id^=btn]:checked+ul {
-        display: block
-    }
-    .show {
-        color: #ff0000;
-        font-size: 25px;
-        text-decoration: underline;
-        text-decoration: solid;
-        padding-left: 15px
-    }
-    .you-container1 {
-        position: relative;
-        padding-bottom: 0px;
-        height: 250px;
-        overflow: hidden;
-        padding-top: 0px;
-    }
-    .you-container2 {
-        position: relative;
-        padding-bottom: 0px;
-        height: 250px;
-        overflow: hidden;
-        padding-top: 50px;
-    }
-    .section1 {
-        width: 1000px;
-        float: right;
-        padding-bottom: 50px;
-        text-align: center;
-    }
-}
-
-@media all and (max-width: 1200px) {
-    nav ul {
-        margin-right: 5px;
-        float: left
-    }
-    nav .logo {
-        padding-left: 30px;
-        width: 80%;
-        padding-top: 10px
-    }
-    nav ul li,
-    nav ul ul li {
-        display: block;
-        width: 100%;
-    }
-    nav ul ul {
-        top: 70px;
-        position: static;
-        border-top: none;
-        float: none;
-        display: none;
-        opacity: 1;
-        visibility: visible
-    }
-    nav ul ul ul li {
-        position: static
-    }
-    nav ul ul li {
-        border-bottom: 0px
-    }
-    nav ul ul a {
-        padding-left: 80px
-    }
-    nav ul ul ul a {
-        padding-left: 160px
-    }
-    .icon {
-        display: block;
-        color: white;
-        position: absolute;
-        right: 40px;
-        padding-top: 35px;
-        line-height: 25px;
-        font-size: 25px;
-        cursor: pointer
-    }
-    nav ul li a:hover {
-        box-shadow: none
-    }
-    .show+a,
-    .navbar-ul {
-        display: none
-    }
-    [id^=btn]:checked+ul {
-        display: block
-    }
-    .show {
-        color: #ff0000;
-        font-size: 25px;
-        text-decoration: underline;
-        text-decoration: solid;
-        padding-left: 15px
-    }
-    .you-container1 {
-        position: relative;
-        padding-bottom: 0px;
-        height: 250px;
-        overflow: hidden;
-        padding-top: 0px
-    }
-    .you-container2 {
-        position: relative;
-        padding-bottom: 0px;
-        height: 250px;
-        overflow: hidden;
-        padding-top: 50px;
-    }
-    .section1 {
-        width: 1000px;
-        float: right;
-        padding-bottom: 50px;
-        text-align: center;
-    }
 }
 
 table img {

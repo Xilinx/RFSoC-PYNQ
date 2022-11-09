@@ -10,11 +10,13 @@ To download the latest PYNQ image for your board, see [PYNQ.io board images](htt
 
 # RFSoC-PYNQ
 
-<img style="float: right; margin: 0px 20px 0px 40px"  src="./images/xilinx-zynq-rfsoc-color-rgb-logo.png">
+<img alt="" style="float: right; margin: 0px 20px 0px 40px"  src="./images/xilinx-zynq-rfsoc-color-rgb-logo.png">
 
 **RFSOC-PYNQ** is an extension to [PYNQ](http://www.pynq.io/) bringing support for the AMD-Xilinx Zynq [RFSoC](https://www.xilinx.com/products/silicon-devices/soc/rfsoc.html) family of devices. RFSoC created a new class of integrated circuit architecture for the communications and instrumentation markets. RFSoC combines high-accuracy ADCs and DACs operating at Giga samples per second (GSPS), with programmable heterogeneous compute engines.
 
 RFSoC-PYNQ provides Python APIs, libraries and drivers for the RFSoC, example overlays and designs, tutorials and other resources for RFSoC users. 
+
+<br class="imgbr"/>
 
 #### RFSoC-PYNQ features
 
@@ -29,7 +31,7 @@ The [RFSoC 4x2](rfsoc_4x2_overview.html) is the recommended kit to get started u
 
 
 # New RFSoC 4x2
-<a href="./rfsoc_4x2_overview.html"><img style="float: right; margin: 50px 60px 50px 60px" src="./images/rfsoc4x2.png"></a>
+<a href="./rfsoc_4x2_overview.html"><img alt ="RFSoC 4x2" style="float: right; margin: 0px 60px 0px 60px" src="./images/rfsoc4x2.png"></a>
 
 We are delighted to announce the launch of our new RFSoC 4x2 kits. The new kits greatly improve on
 the performance of the older RFSoC 2x2 kits, at the same $2,149 academic price. 
@@ -48,7 +50,7 @@ the performance of the older RFSoC 2x2 kits, at the same $2,149 academic price.
 
 For more details and purchasing information see the [RFSoC 4x2 Overview](rfsoc_4x2_overview.html).
 
-<br clear="right"/>
+<br class="imgbr"/>
 
 # RFSoC 2x2 discontinued
 
