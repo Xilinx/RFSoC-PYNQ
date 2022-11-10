@@ -79,7 +79,7 @@ The following steps describe how to rebuild the *base* overlay. As the precompil
 * Download or clone a copy of this repository
 
 ```sh
-git clone https://github.com/Xilinx/RFSoC2x2-PYNQ.git
+git clone https://github.com/Xilinx/RFSoC-PYNQ.git
 ```
 
 ## Create the Vivado project
@@ -92,7 +92,7 @@ Other versions of Vivado are untested and are unlikely to build this design with
 On Linux, make sure you have sourced your Xilinx tools (Vivado 2020.1), change to the following directory and run `make`.
 
 ```console
-cd RFSoC2x2-PYNQ/board/RFSoC2x2/base/
+cd RFSoC-PYNQ/boards/RFSoC2x2/base/
 make
 ```
 
@@ -103,7 +103,7 @@ This will build a Vivado project with the base design for the board. The make fi
 * Open Vivado 2020.1 and use the TCL console to change (`cd`) into the `base` directory. 
 
 ```console
-cd RFSoC2x2-PYNQ/board/RFSoC2x2/base/
+cd RFSoC-PYNQ/boards/RFSoC2x2/base/
 ```
 
 And then, run the following command in order to create a Vivado project and build the block diagram for the base overlay:
