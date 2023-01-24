@@ -2,6 +2,18 @@
 layout: default
 ---
 
+# New free eBook: SDR with Zynq Ultrascale+ RFSoC 
+
+<img src="./images/rfsoc_book_banner.png">
+
+This book introduces Zynq Ultrascale+ RFSoC, a technology that brings real, single-chip, Software 
+Defined Radio (SDR) to the marketplace. The book is accompanied by Jupyter Notebooks that can be run on
+ your RFSoC-PYNQ enabled board, illustrating key concepts including *sampling* and *quantisation*, *filter
+ design*, *Fourier's theorem* and *FFTs*, *pulse shaping*, *QAM*, *frequency planning*, *Forward-Error-Correction*, 
+and *OFDM*. 
+
+See the book website [www.rfsocbook.com](https://www.rfsocbook.com/) to download your **free** copy of the eBook and details on how to purchase hard copies. 
+
 # New RFSoC-PYNQ release
 
 The latest RFSoC-PYNQ 3.0 release adds supports for the [ZCU208](https://www.xilinx.com/products/boards-and-kits/zcu208.html) alongside the existing support for the [RFSoC 4x2](./rfsoc_4x2_overview.html), [RFSoC 2x2](rfsoc_2x2_overview.html), and [ZCU111](https://www.xilinx.com/products/boards-and-kits/zcu111.html). 
