@@ -2,6 +2,18 @@
 layout: default
 ---
 
+# New free eBook: SDR with Zynq Ultrascale+ RFSoC 
+
+<img src="./images/rfsoc_book_banner.png">
+
+This book introduces Zynq Ultrascale+ RFSoC, a technology that brings real, single-chip, Software 
+Defined Radio (SDR) to the marketplace. The book is accompanied by Jupyter Notebooks that can be run on
+ your RFSoC-PYNQ enabled board, illustrating key concepts including *sampling* and *quantisation*, *filter
+ design*, *Fourier's theorem* and *FFTs*, *pulse shaping*, *QAM*, *frequency planning*, *Forward-Error-Correction*, 
+and *OFDM*. 
+
+See the book website [www.rfsocbook.com](https://www.rfsocbook.com/) to download your **free** copy of the eBook and details on how to purchase hard copies. 
+
 # New RFSoC-PYNQ release
 
 The latest RFSoC-PYNQ 3.0 release adds supports for the [ZCU208](https://www.xilinx.com/products/boards-and-kits/zcu208.html) alongside the existing support for the [RFSoC 4x2](./rfsoc_4x2_overview.html), [RFSoC 2x2](rfsoc_2x2_overview.html), and [ZCU111](https://www.xilinx.com/products/boards-and-kits/zcu111.html). 
@@ -10,7 +22,7 @@ To download the latest PYNQ image for your board, see [PYNQ.io board images](htt
 
 # RFSoC-PYNQ
 
-<img alt="" style="float: right; margin: 0px 20px 0px 40px"  src="./images/xilinx-zynq-rfsoc-color-rgb-logo.png">
+<img alt="" style="float: right; margin: 0px 20px 0px 40px"  src="./images/221761734-A_AMD_Zynq_RFSoC_Lockup_RGB_Blk.png">
 
 **RFSOC-PYNQ** is an extension to [PYNQ](http://www.pynq.io/) bringing support for the AMD-Xilinx Zynq [RFSoC](https://www.xilinx.com/products/silicon-devices/soc/rfsoc.html) family of devices. RFSoC created a new class of integrated circuit architecture for the communications and instrumentation markets. RFSoC combines high-accuracy ADCs and DACs operating at Giga samples per second (GSPS), with programmable heterogeneous compute engines.
 
