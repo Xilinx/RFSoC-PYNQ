@@ -4,7 +4,7 @@ layout: default
 
 # New free eBook: SDR with Zynq Ultrascale+ RFSoC 
 
-<img src="./images/rfsoc_book_banner.png">
+<a href="https://www.rfsocbook.com/"><img src="./images/rfsoc_book_banner.png"></a>
 
 This book introduces Zynq Ultrascale+ RFSoC, a technology that brings real, single-chip, Software 
 Defined Radio (SDR) to the marketplace. The book is accompanied by Jupyter Notebooks that can be run on
