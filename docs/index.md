@@ -22,7 +22,7 @@ To download the latest PYNQ image for your board, see [PYNQ.io board images](htt
 
 # RFSoC-PYNQ
 
-<img alt="" style="float: right; margin: 0px 20px 0px 40px"  src="./images/xilinx-zynq-rfsoc-color-rgb-logo.png">
+<img alt="" style="float: right; margin: 0px 20px 0px 40px"  src="./images/221761734-A_AMD_Zynq_RFSoC_Lockup_RGB_Blk.png">
 
 **RFSOC-PYNQ** is an extension to [PYNQ](http://www.pynq.io/) bringing support for the AMD-Xilinx Zynq [RFSoC](https://www.xilinx.com/products/silicon-devices/soc/rfsoc.html) family of devices. RFSoC created a new class of integrated circuit architecture for the communications and instrumentation markets. RFSoC combines high-accuracy ADCs and DACs operating at Giga samples per second (GSPS), with programmable heterogeneous compute engines.
 
