@@ -1,3 +1,11 @@
+/include/ "system-conf.dtsi"
+/ {
+        chosen {
+                xlnx,eeprom = &eeprom;
+        };
+};
+
+
 &i2c_clk104 {
 	sc18is602@2f {
 		compatible = "nxp,sc18is602b";
