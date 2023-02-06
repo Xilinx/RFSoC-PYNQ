@@ -1,5 +1,9 @@
 /include/ "system-conf.dtsi"
 / {
+	chosen {
+	        xlnx,eeprom = &eeprom;
+        };
+
 	amba_pl@0 {
 		data_source_top0:data_source_top@a0000000 {
 			compatible = "xlnx,data-source-top-1.0";
