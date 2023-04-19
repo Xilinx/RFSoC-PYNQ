@@ -23,7 +23,8 @@ lmk_reset.write(0)
 lmk_clk_sel0.write(0)
 lmk_clk_sel1.write(0)
 
-base = BaseOverlay('base.bit')
+# do not load the BaseOverlay during boot as it would preclude loading a devicetree overlay later
+# base = BaseOverlay('base.bit')
 base.init_rf_clks()
 
 for _ in range(8):
