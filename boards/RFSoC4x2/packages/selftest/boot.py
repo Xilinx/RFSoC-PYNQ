@@ -583,11 +583,12 @@ if test_flags['set_ref_clks']:
 In this section we test writing random data to the DDR4 PL-DRAM.
 
 """
+test_flags['pl_dram'] = 'Pass'
 try:
     test_overlay.test_pl_dram()
 except:
     test_flags['pl_dram'] = 'Fail'
-    logprint('PL DRAM memory errors found')
+logprint('PL-DRAM: {}'.format(test_flags['pl_dram']))
 
 """Section 4: Test RF components.
 
