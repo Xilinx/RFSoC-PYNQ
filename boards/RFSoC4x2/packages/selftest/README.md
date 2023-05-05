@@ -65,13 +65,12 @@ The following components will be tested in order:
 	* PMBus functions properly during spectrum sweep. 
 5. PL_LED3 will be turned on if:
 	* RF components work properly during spectrum sweep.
+6. PL DRAM
 
 If all the components work fine, both RGB LEDs (PL_RGB0 and PL_RGB1) will be green.
 Otherwise they will both be red, indicating a failed test. You will also
 see 'TEST PASS' or 'TEST FAIL' on the OLED display and your terminal.
 
 ----
-
 Copyright (C) 2022 Xilinx, Inc
-
 SPDX-License-Identifier: BSD-3-Clause
