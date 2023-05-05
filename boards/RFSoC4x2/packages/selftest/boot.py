@@ -281,16 +281,12 @@ class SelfTestOverlay(BaseOverlay):
             dc_channel_flags['RFSoC Data Converters_ch_{}'.format(i)] = rfdc_results[i]
         return dc_channel_flags
 
-    def test_pl_dram():
-        """Using MMIO this test maps the PL-DRAM into upper and lower memory blocks that are then written to with random patterns
-
-        Returns
-        -------
-        integer
-            If no errors found, returns 0; otherwise errors detected with PL-DRAM.
+    def test_pl_dram(self):
         """
-        baseAddress = base.mem_dict['ddr4_0']['phys_addr']
-        mem_range = base.mem_dict['ddr4_0']['addr_range']
+        Using MMIO this test maps the PL-DRAM into upper and lower memory blocks that are then written to with random patterns
+        """
+        baseAddress = self.mem_dict['ddr4_0']['phys_addr']
+        mem_range = self.mem_dict['ddr4_0']['addr_range']
         midpoint = mem_range // 2
         mmioLO = MMIO(baseAddress, midpoint)
         dramShadowLMB = mmioLO.array[0:mmioLO.length].view(np.int32)
@@ -307,8 +303,8 @@ class SelfTestOverlay(BaseOverlay):
             midpoint // 4 - numSamples  # end
         ]
         # Verify PL DRAM by writing to it and then reading back
+        mismatch = 0
         for dramShadow, srcBuffer in [(dramShadowLMB, srcBufferLMB), (dramShadowHMB, srcBufferHMB)]:
-            mismatch = 0
             for N in range(len(dStart)):
                 dramShadow[dStart[N]:dStart[N]+len(srcBuffer)] = srcBuffer
                 if np.array_equal(srcBuffer, dramShadow[dStart[N]:dStart[N]+len(srcBuffer)]):
@@ -316,8 +312,7 @@ class SelfTestOverlay(BaseOverlay):
                 else:
                     mismatch += 1
                     break
-        return mismatch
-            
+        assert (mismatch == 0)
 
 class SpectrumSweepApplication:
     """A Spectrum Sweep Application.
@@ -592,7 +587,7 @@ try:
     test_overlay.test_pl_dram()
 except:
     test_flags['pl_dram'] = 'Fail'
-    logprint('PL DRAM memory errors found5')
+    logprint('PL DRAM memory errors found')
 
 """Section 4: Test RF components.
 
