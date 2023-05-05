@@ -309,7 +309,7 @@ class SelfTestOverlay(BaseOverlay):
         # Verify PL DRAM by writing to it and then reading back
         for dramShadow, srcBuffer in [(dramShadowLMB, srcBufferLMB), (dramShadowHMB, srcBufferHMB)]:
             mismatch = 0
-            for N in range(len(dStart):
+            for N in range(len(dStart)):
                 dramShadow[dStart[N]:dStart[N]+len(srcBuffer)] = srcBuffer
                 if np.array_equal(srcBuffer, dramShadow[dStart[N]:dStart[N]+len(srcBuffer)]):
                     pass # left in case we want to add any reporting progress etc...
