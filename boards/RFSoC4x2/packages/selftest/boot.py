@@ -13,6 +13,7 @@ import pandas as pd
 import numpy as np
 from pynq import get_rails, DataRecorder, allocate
 from pynq import GPIO
+from pynq import MMIO
 from pynq.lib.pmod import pmod_cable
 from pynq.overlays.base import BaseOverlay
 from rfsoc4x2 import oled
@@ -280,6 +281,38 @@ class SelfTestOverlay(BaseOverlay):
             dc_channel_flags['RFSoC Data Converters_ch_{}'.format(i)] = rfdc_results[i]
         return dc_channel_flags
 
+    def test_pl_dram(self):
+        """
+        Using MMIO this test maps the PL-DRAM into upper and lower memory blocks that are then written to with random patterns
+        """
+        baseAddress = self.mem_dict['ddr4_0']['phys_addr']
+        mem_range = self.mem_dict['ddr4_0']['addr_range']
+        midpoint = mem_range // 2
+        mmioLO = MMIO(baseAddress, midpoint)
+        dramShadowLMB = mmioLO.array[0:mmioLO.length].view(np.int32)
+        mmioHI = MMIO(baseAddress + midpoint, midpoint)
+        dramShadowHMB = mmioHI.array[0:mmioHI.length].view(np.int32)
+        # Create the Source Buffers that will reside in PS memory space
+        numSamples = 64 * (1 << 20) #  256 MB
+        srcBufferLMB = np.random.randint(np.iinfo(np.int32).max+1, size=numSamples, dtype=np.int32)
+        srcBufferHMB = np.random.randint(np.iinfo(np.int32).max+1, size=numSamples, dtype=np.int32)
+        dStart = [
+            0,  # start
+            midpoint // (4 * 4),  # middle lower - sizeof np.int32 = 4
+            midpoint // (4 * 2),  # middle upper
+            midpoint // 4 - numSamples  # end
+        ]
+        # Verify PL DRAM by writing to it and then reading back
+        mismatch = 0
+        for dramShadow, srcBuffer in [(dramShadowLMB, srcBufferLMB), (dramShadowHMB, srcBufferHMB)]:
+            for N in range(len(dStart)):
+                dramShadow[dStart[N]:dStart[N]+len(srcBuffer)] = srcBuffer
+                if np.array_equal(srcBuffer, dramShadow[dStart[N]:dStart[N]+len(srcBuffer)]):
+                    pass # left in case we want to add any reporting progress etc...
+                else:
+                    mismatch += 1
+                    break
+        assert (mismatch == 0)
 
 class SpectrumSweepApplication:
     """A Spectrum Sweep Application.
@@ -543,12 +576,21 @@ except RuntimeError as e:
     logprint('Set RF Data Converter clocks failed: {}'.format(str(e)))
 logprint('Set RF Data Converter clocks: {}'.format(test_flags['set_ref_clks']))
 
-
 if test_flags['set_ref_clks']:
     test_overlay.leds[1].on()
 
+"""Section 3: Test PL DRAM
+In this section we test writing random data to the DDR4 PL-DRAM.
 
-"""Section 3: Test RF components.
+"""
+test_flags['pl_dram'] = 'Pass'
+try:
+    test_overlay.test_pl_dram()
+except:
+    test_flags['pl_dram'] = 'Fail'
+logprint('PL-DRAM: {}'.format(test_flags['pl_dram']))
+
+"""Section 4: Test RF components.
 
 We will configure the RF components, including ADC, DAC. After that, we 
 sweep the frequency domain while checking power.
