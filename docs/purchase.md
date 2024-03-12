@@ -14,6 +14,6 @@ The RFSOC 4x2 is currently only available to staff at accredited Universities an
 
 * Academic price: $2149
 
-To purchase a board, you must submit a [submit a purchase approval request to the AMD University Program](https://account.amd.com/en/member/xup/aup_rfsoc_academic_pricing_request.html). You will be contacted by the AMD  University Program after you submit your request with further details on how to complete your purchase.
+To purchase a board, you must [submit a purchase approval request to the AMD University Program](https://account.amd.com/en/member/aup/aup_rfsoc_academic_pricing_request.html). You will be contacted by the AMD  University Program after you submit your request with further details on how to complete your purchase.
 
-For any other enquiries including purchases for industry, please [contact the AMD University Program](mailto:xup@amd.com).
+For any other enquiries including purchases for industry, please [contact the AMD University Program](mailto:aup@amd.com).
