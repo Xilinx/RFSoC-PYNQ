@@ -18,7 +18,7 @@ See the book website [www.rfsocbook.com](https://www.rfsocbook.com/) to download
 
 The latest RFSoC-PYNQ 3.0 release adds supports for the [ZCU208](https://www.xilinx.com/products/boards-and-kits/zcu208.html) alongside the existing support for the [RFSoC 4x2](./rfsoc_4x2_overview.html), [RFSoC 2x2](rfsoc_2x2_overview.html), and [ZCU111](https://www.xilinx.com/products/boards-and-kits/zcu111.html).
 
-To download the latest PYNQ image for your board, see [PYNQ.io board images](http://www.pynq.io/board).
+To download the latest PYNQ image for your board, see [PYNQ.io board images](https://www.pynq.io/boards.html).
 
 # RFSoC-PYNQ
 

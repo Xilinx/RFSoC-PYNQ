@@ -19,7 +19,7 @@ For enquiries [contact the AMD University Program](mailto:aup@amd.com)
 ## Quick links
 
 * If you have a board, follow the [RFSoC 4x2 getting started guide](rfsoc_4x2_getting_started.html)
-* Download the latest [RFSoC 4x2 PYNQ image](http://www.pynq.io/board.html)
+* Download the latest [RFSoC 4x2 PYNQ image](https://www.pynq.io/boards.html)
 * Go to the [Real Digital RFSoC 4x2](https://www.realdigital.org/hardware/rfsoc-4x2) webpage to download the user manual, schematics, Board Support Package (BSP), Vivado constraints files and other board resources.
 
 ## Zynq RFSoC device
