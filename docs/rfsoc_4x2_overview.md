@@ -10,7 +10,7 @@ The *RFSoC 4x2* is developed by the PYNQ team in partnership with [Real Digital]
 
 The RFSOC 4x2 is currently only available to Universities and Research Institutes. 
 
-* Academic price: $2149
+* Academic price: $2499
 
 To purchase a board, [submit a request to the AMD University Program](https://www.amd.com/en/corporate/university-program/aup-boards/rfsoc4x2.html#Purchasing_at_academic_price). 
 
