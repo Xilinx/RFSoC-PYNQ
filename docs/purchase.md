@@ -12,7 +12,7 @@ ZCU111, ZCU208 and other RFSoC boards can be purchased from [AMD](https://www.xi
 
 The RFSOC 4x2 is currently only available to staff at accredited Universities and Research Institutes.
 
-* Academic price: $2149
+* Academic price: $2499
 
 To purchase a board, you must [submit a purchase approval request to the AMD University Program](https://account.amd.com/en/member/aup/aup_rfsoc_academic_pricing_request.html). You will be contacted by the AMD  University Program after you submit your request with further details on how to complete your purchase.
 
