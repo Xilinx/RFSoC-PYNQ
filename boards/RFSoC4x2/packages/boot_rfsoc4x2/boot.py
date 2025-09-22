@@ -9,14 +9,20 @@ from rfsoc4x2 import oled
 import pynq
 import subprocess as sp
 import netifaces as ni
+import glob, os
 
 oled = oled.oled_display()
 oled.write("RFSoC-PYNQ\nVersion {}".format(pynq.__version__))
 
-# LMK clock config
-lmk_reset = GPIO(341, 'out')
-lmk_clk_sel0 = GPIO(342, 'out')
-lmk_clk_sel1 = GPIO(346, 'out')
+# Find the chip number whose realpath contains 'ff0a0000.gpio'
+LMK_GPIO_BASE = next(
+    int(os.path.basename(p)[len("gpiochip"):])
+    for p in glob.glob("/sys/class/gpio/gpiochip*")
+    if "ff0a0000.gpio" in os.path.realpath(p)
+)
+lmk_reset = GPIO(LMK_GPIO_BASE+7, 'out')
+lmk_clk_sel0 = GPIO(LMK_GPIO_BASE+8, 'out')
+lmk_clk_sel1 = GPIO(LMK_GPIO_BASE+12, 'out')
 
 lmk_reset.write(1)
 lmk_reset.write(0)

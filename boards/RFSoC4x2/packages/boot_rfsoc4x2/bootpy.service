@@ -1,0 +1,14 @@
+[Unit]
+Description=Executing boot.py from the boot partition
+After=boot.mount systemd-udev-settle.service clear_pl_statefile.service
+Wants=systemd-udev-settle.service clear_pl_statefile.service
+RequiresMountsFor=/boot
+
+[Service]
+Type=oneshot
+ExecStartPre=/usr/bin/udevadm settle
+ExecStart=/usr/local/bin/bootpy.sh
+TimeoutStartSec=120
+
+[Install]
+WantedBy=multi-user.target
