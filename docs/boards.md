@@ -12,19 +12,17 @@ To build your own custom RFSoC-PYNQ image it is recommneded that you follow the 
 
 You can find more information on building a PYNQ image and ask questions on the [PYNQ support forum: quick porting of PYNQ](https://discuss.pynq.io/t/quick-porting-of-pynq-using-pre-built-images/1075/16).
 
-## Community boards and future support
+## Community boards
 
 RFSoC-PYNQ images have been created by PYNQ community members for other RFSoC boards:
 
 * [ZCU216 GitHub repository](https://github.com/sarafs1926/ZCU216-PYNQ), credit: [Sara Sussman](https://sarafs1926.github.io/)
-* *ZCU208 Coming soon*
 
 
 <html>
 <table style="background-color: #FFFFFF;">
   <tr>
     <th>ZCU216</th>
-    <th>ZCU208 (coming soon)</th>
   </tr>
   <tr>
     <td><img src ="./images/zcu216.png"></td>

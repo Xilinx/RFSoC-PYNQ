@@ -6,9 +6,9 @@ layout: default
 
 AMD-Xilinx’s Radio Frequency System-on-Chip ([RFSoC](https://www.xilinx.com/products/silicon-devices/soc/rfsoc.html)) devices have created a new class of integrated circuit architecture for the communications and instrumentation markets. RFSoCs combine high-accuracy ADCs and DACs operating at Giga samples per second (Gsps), with programmable heterogeneous compute engines.
 
-The *RFSoC 4x2 kit* is based on the Xilinx RFSoC **Gen3 XCZU48DR**. The RFSoC 4x2 is an upgraded version of the earlier RFSoC 2x2 which was based on a RFSoC Gen1. If you are looking for information related to the earlier board, see the [RFSoC 2x2 webpages](https://xilinx.github.io/rfsoc2x2-pynq).
+The *RFSoC 4x2 kit* is based on the Xilinx RFSoC **Gen3 XCZU48DR**. The RFSoC 4x2 is an upgraded version of the earlier RFSoC 2x2 which was based on a RFSoC Gen1.
 
-The RFSoC 4x2 kit will initially be available to academic customers only. For other enquiries [contact the AMD (Xilinx) University Program](mailto:xup@xilinx.com)
+The RFSoC 4x2 kit will initially be available to academic customers only. For other enquiries [contact the AMD University Program](mailto:aup@amd.com)
 
 <a href="./images/RFSoC_4x2_Max_Res.png"><img src="./images/RFSoC_4x2_Min_Res.png"/></a>
 

@@ -14,12 +14,6 @@ and *OFDM*.
 
 See the book website [www.rfsocbook.com](https://www.rfsocbook.com/) to download your **free** copy of the eBook and details on how to purchase hard copies. 
 
-# New RFSoC-PYNQ release
-
-The latest RFSoC-PYNQ 3.0 release adds supports for the [ZCU208](https://www.xilinx.com/products/boards-and-kits/zcu208.html) alongside the existing support for the [RFSoC 4x2](./rfsoc_4x2_overview.html), [RFSoC 2x2](rfsoc_2x2_overview.html), and [ZCU111](https://www.xilinx.com/products/boards-and-kits/zcu111.html). 
-
-To download the latest PYNQ image for your board, see [PYNQ.io board images](http://www.pynq.io/board).
-
 # RFSoC-PYNQ
 
 <img alt="" style="float: right; margin: 0px 20px 0px 40px"  src="./images/221761734-A_AMD_Zynq_RFSoC_Lockup_RGB_Blk.png">
@@ -42,11 +36,8 @@ RFSoC-PYNQ provides Python APIs, libraries and drivers for the RFSoC, example ov
 The [RFSoC 4x2](rfsoc_4x2_overview.html) is the recommended kit to get started using RFSoC-PYNQ.
 
 
-# New RFSoC 4x2
+# RFSoC 4x2
 <a href="./rfsoc_4x2_overview.html"><img alt ="RFSoC 4x2" style="float: right; margin: 0px 60px 0px 60px" src="./images/rfsoc4x2.png"></a>
-
-We are delighted to announce the launch of our new RFSoC 4x2 kits. The new kits greatly improve on
-the performance of the older RFSoC 2x2 kits, at the same $2,149 academic price. 
 
 #### RFSoC 4x2 key features
 
@@ -66,7 +57,7 @@ For more details and purchasing information see the [RFSoC 4x2 Overview](rfsoc_4
 
 # RFSoC 2x2 discontinued
 
-Due to global supply challenges the [RFSoC 2x2  kits](rfsoc_2x2_overview.html) are discontinued but software support for existing boards will continue.
+Due to global supply challenges the [RFSoC 2x2  kits](rfsoc_2x2_overview.html) are discontinued.
 
 
 # Support 
