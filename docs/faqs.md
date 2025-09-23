@@ -4,7 +4,7 @@ layout: default
 
 # Frequently Asked Questions
 
-These FAQ are primarily for the RFSoC 4x2 and 2x2. 
+This FAQ is primarily for the RFSoC2x2 and RFSoC4x2. 
 
 ## Can you tell me more about the RFSoC 4x2?
 
@@ -74,19 +74,12 @@ To get access to the PCB Gerber files [contact XUP](mailto:xup@xilinx.com).
 
 ## Can I still purchase an RFSoC 2x2?
 
-The RFSoC 2x2 board, produced in partnership with High Tech Global, is officially discontinued. No
-further units are available for sale.
+The RFSoC 2x2 board, produced in partnership with High Tech Global, is officially discontinued. No further units are available for sale.
 
-A small number of reserve units are available for a short period from the AMD Xilinx University
-Program in the event that some team has an urgent need. In all other cases, we recommend that
-users migrate to the newer and more capable RFSoC 4x2 kits.
+We recommend that users migrate to the newer and more capable RFSoC 4x2 kits.
 
 ## Will support continue for the RFSoC 2x2?
 
-Existing RFSoC 2x2 boards will be supported by the RFSoC-PYNQ framework for the foreseeable
-future. Any change in this status will be communicated with a minimum advance notice of 6 months.
-Even after new development for the RFSoC 2x2 boards stops, it will be possible to continue using the
-last, feature-frozen version of the RFSoC-PYNQ framework and the source software will continue to
-be available.
+As of PYNQ v3.1, the RFSoC2x2 board is no longer supported by the RFSoC-PYNQ framework.  However, it is still possible to continue using previous, feature-frozen versions of the RFSoC-PYNQ framework and the source software will continue to be available.
 
 

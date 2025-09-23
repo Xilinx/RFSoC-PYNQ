@@ -1,32 +1,77 @@
+From 314a685bb8852fbbbf3f672d57277e95ba5761a5 Mon Sep 17 00:00:00 2001
+From: Josh Goldsmith <josh.goldsmith@amd.com>
+Date: Wed, 13 Aug 2025 07:42:55 +0100
+Subject: [PATCH] read from at24mac402 extended memory
+
+---
+ board/xilinx/common/board.c | 40 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 40 insertions(+)
+
 diff --git a/board/xilinx/common/board.c b/board/xilinx/common/board.c
-index 771b749..64b58b5 100644
+index 9641ed307b7..81f38bcaf0b 100644
 --- a/board/xilinx/common/board.c
 +++ b/board/xilinx/common/board.c
-@@ -20,18 +20,16 @@ int zynq_board_read_rom_ethaddr(unsigned char *ethaddr)
- {
- 	int ret = -EINVAL;
- 	struct udevice *dev;
--	ofnode eeprom;
--
--	eeprom = ofnode_get_chosen_node("xlnx,eeprom");
--	if (!ofnode_valid(eeprom))
--		return -ENODEV;
--
--	debug("%s: Path to EEPROM %s\n", __func__,
--	      ofnode_read_chosen_string("xlnx,eeprom"));
+@@ -34,6 +34,8 @@
  
--	ret = uclass_get_device_by_ofnode(UCLASS_I2C_EEPROM, eeprom, &dev);
--	if (ret)
--		return ret;
-+	/* 
-+	 * Reading of extended memory is not supported by the driver
-+	 * Use customized code to read out MAC address
-+	 */
-+	ret = i2c_get_chip_for_busnum(1, CONFIG_SYS_I2C_EEPROM_ADDR, 1, &dev);
-+	if (ret){
+ #include "fru.h"
+ 
++#include <i2c.h>   /* i2c_get_chip_for_busnum, dm_i2c_read */
++
+ #if IS_ENABLED(CONFIG_EFI_HAVE_CAPSULE_SUPPORT)
+ struct efi_fw_image fw_images[] = {
+ #if defined(XILINX_BOOT_IMAGE_GUID)
+@@ -406,6 +408,33 @@ static int env_set_by_index(const char *name, int index, char *data)
+ 	return env_set(var, data);
+ }
+ 
++static int rfsoc4x2_read_fixed_mac(u8 mac[ETH_ALEN])
++{
++    struct udevice *dev;
++    int ret;
++	#define CONFIG_ZYNQ_GEM_I2C_MAC_OFFSET 0x9A
++
++    ret = i2c_get_chip_for_busnum(1, CONFIG_SYS_I2C_EEPROM_ADDR, 1, &dev);
++    if (ret) {
 +		printf("Failed to get chip for bus 1\n");
-+ 		return ret;
-+	}
++        return ret;
++    }
++
++    ret = dm_i2c_read(dev, CONFIG_ZYNQ_GEM_I2C_MAC_OFFSET, mac, ETH_ALEN);
++    if (ret) {
++        printf("MAC: EEPROM read failed at offset 0x%X: %d\n",
++               CONFIG_ZYNQ_GEM_I2C_MAC_OFFSET, ret);
++        return ret;
++    }
++
++    if (!is_valid_ethaddr(mac)) {
++        printf("MAC: invalid value read from EEPROM: %pM\n", mac);
++        return -EINVAL;
++    }
++
++    return 0;
++}
++
+ int board_late_init_xilinx(void)
+ {
+ 	u32 ret = 0;
+@@ -493,6 +522,17 @@ int board_late_init_xilinx(void)
+ 		}
+ 	}
  
- 	ret = dm_i2c_read(dev, CONFIG_ZYNQ_GEM_I2C_MAC_OFFSET, ethaddr, 6);
++    /* If no valid ethaddr was set by FRU/DT, read the hard-coded EEPROM */
++    u8 mac[ETH_ALEN];
++    uchar cur[ETH_ALEN];
++
++    if (eth_env_get_enetaddr("ethaddr", cur) && is_valid_ethaddr(cur)) {
++        /* already set; do nothing */
++    } else if (!rfsoc4x2_read_fixed_mac(mac)) {
++        eth_env_set_enetaddr("ethaddr", mac);
++        printf("MAC: set ethaddr from EEPROM: %pM\n", mac);
++	}
++
  	if (ret)
+ 		printf("%s: Saving run time variables FAILED\n", __func__);
+ 
+-- 
+2.49.0.windows.1
+
