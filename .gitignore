@@ -33,3 +33,7 @@ thumbs.db
 
 # Vivado Files
 *.jou
+*.str
+*.xsa
+*.bit
+*.hwh
