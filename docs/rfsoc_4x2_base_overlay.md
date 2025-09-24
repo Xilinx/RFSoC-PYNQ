@@ -84,13 +84,13 @@ git clone https://github.com/Xilinx/RFSoC-PYNQ.git
 
 ## Create the Vivado project
 
-The current `base` design was built using **Vivado 2022.1**. Other versions of Vivado are untested and are unlikely to build this design without modifications. 
+The current `base` design was built using **Vivado 2024.1**. Other versions of Vivado are untested and are unlikely to build this design without modifications. 
 
 You need to make sure you have included the RFSoC devices in your Vivado installation. If you didn't do this when you installed Vivado, you can add them from the Vivado *help* menu. 
 
 ### Linux
 
-On Linux, make sure you have sourced your Xilinx tools and navigate to the `base` directory where you cloned this repository and run `make`.
+On Linux, make sure you have sourced your AMD design tools (e.g. Vivado) and navigate to the `base` directory where you cloned this repository and run `make`.
 
 ```console
 cd RFSoC-PYNQ/boards/RFSoC4x2/base/

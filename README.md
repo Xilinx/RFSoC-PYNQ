@@ -1,7 +1,7 @@
 ![](rfsocpynq_logo.png)
 
 
-This repository contains the source code and build scripts for the RFSoC-PYNQ base design and SD card images. The design files in this repository are compatible with Xilinx Vivado 2022.1, and PYNQ v3.0.0 and later.  
+This repository contains the source code and build scripts for the RFSoC-PYNQ base design and SD card images. The design files in this repository are compatible with Vivado 2024.1, and PYNQ v3.1.1 and later.  
 
 Currently, the ZCU111, ZCU208, RFSoC4x2 and RFSoC2x2 platforms are supported.
 
@@ -25,10 +25,9 @@ For optional image rebuilding for any of the boards, you will need a Linux (Ubun
 
 	| Board  | BSP Link |
 	| ------------- | ------------- |
-	| ZCU111  | [xilinx-zcu111-v2022.1.bsp](https://www.xilinx.com/member/forms/download/xef.html?filename=xilinx-zcu111-v2022.1-04191534.bsp)  |
-	| ZCU208  | [xilinx-zcu208-v2022.1.bsp](https://www.xilinx.com/member/forms/download/xef.html?filename=xilinx-zcu208-v2022.1-04191534.bsp)  |
-	| RFSoC4x2  | [RFSoC4x2_2022_1.bsp](https://github.com/RealDigitalOrg/RFSoC4x2-BSP/blob/master/bsp_releases/RFSoC4x2_2022_1.bsp?raw=true)  |
-	| RFSoC2x2  | No BSP needed.  |
+	| ZCU111  | Link coming soon...  |
+	| ZCU208  | [xilinx-zcu208-v2024.1.bsp](https://www.xilinx.com/member/forms/download/xef.html?filename=xilinx-zcu208-v2024.1-05230256.bsp)  |
+	| RFSoC4x2  | Link coming soon...  |
 	
 	```
 	cp <local-path-to-bsp> boards/<BOARD>/<BOARD>.bsp
@@ -46,6 +45,7 @@ For optional image rebuilding for any of the boards, you will need a Linux (Ubun
 	```
 ---
 Copyright (C) 2022 Xilinx, Inc
+Copyright (C) 2022-2025 Advanced Micro Devices, Inc
 
 SPDX-License-Identifier: BSD-3-Clause
 

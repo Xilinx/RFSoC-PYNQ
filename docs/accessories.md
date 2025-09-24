@@ -4,9 +4,9 @@ layout: default
 
 # Accessories
 
-The accessories on this page are primarily for the RFSoC 4x2 and 2x2. 
+The accessories on this page are primarily for the RFSoC4x2.. 
 
-The RFSoC 2x2 and 4x2 kits come with a Micro SD card, a Micro USB 3.0 cable, a power supply and two SMA cables. Other optional accessoriescan be used including RF antennas, filters and amplifiers, as described below. 
+The RFSoC4x2 kit comes with a Micro SD card, a Micro USB 3.0 cable, a power supply and two SMA cables. Other optional accessoriescan be used including RF antennas, filters and amplifiers, as described below. 
 
 ## Included accessories
 
@@ -92,7 +92,7 @@ Signal amplification should be applied carefully to your RFSoC development board
 
 ### Attenuators <a class="anchor" id="attenuators"></a>
 
-You should attenuate your input signal if you are using the VeGA amplifier on the RF ADC front-end. NooElec provide an SMA attenuator kit that will interface to the VeGA and RFSoC development board. We suggest connecting an attenuator of -14dB at the output of the VeGA amplifier (before the RF ADC input). This will convert the output 5V signal to 1V, (suitable for the RFSoC 2x2 and 4x2).
+You should attenuate your input signal if you are using the VeGA amplifier on the RF ADC front-end. NooElec provide an SMA attenuator kit that will interface to the VeGA and RFSoC development board. We suggest connecting an attenuator of -14dB at the output of the VeGA amplifier (before the RF ADC input). This will convert the output 5V signal to 1V, (suitable for the RFSoC4x2).
 
 * [SMA Attenuator Kit](https://www.nooelec.com/store/sdr/sdr-addons/attenuators/attenuator-bundle.html)
     * Brand: NooElec
@@ -115,7 +115,7 @@ The RFSoC 4x2 also has a QSFP28 port that can be used to offload data to a diffe
 
 #### Micro USB (2.0) cable
 
-The RFSoC 2x2 and 4x2 both have a Micro USB UART/JTAG port. A standard Micro USB (2.0) micro B cable is optional and can be connected to this port. You can use this if you need to access a serial terminal on the UART. You can also use JTAG on this cable/port to connect to the board from Vivado to download a bitstream, or for JTAG debug. 
+The RFSoC4x2 has a Micro USB UART/JTAG port. A standard Micro USB (2.0) micro B cable is optional and can be connected to this port. You can use this if you need to access a serial terminal on the UART. You can also use JTAG on this cable/port to connect to the board from Vivado to download a bitstream, or for JTAG debug. 
 
 ### Ethernet cable
 

@@ -10,7 +10,6 @@ RFSoC-PYNQ is delivered as an SD Card image for supported boards. The image is c
 
 RFSoC-PYNQ images are available for the following boards and can be downloaded from the [PYNQ.io board images](https://www.pynq.io/boards.html) webpage.
 
-* RFSoC 2x2
 * RFSoC 4x2
 * ZCU111
 * ZCU208
@@ -27,13 +26,9 @@ If an image is not available for your board you can build your own custom RFSoC-
 
 The board overview pages will give an overview of each board. The getting started guides will walk you through the process of setting up your board, connecting to it, and running your first RFSoC-PYNQ notebook. 
 
-### RFSoC 2x2
-* [RFSoC 2x2 board overview](./rfsoc_4x2_overview.html)
-* [RFSoC 2x2 getting started guide](rfsoc_2x2_getting_started.html)
-
 ### RFSoC 4x2
-* [RFSoC 2x2 board overview](rfsoc_4x2_overview.html)
-* [RFSoC 2x2 getting started guide](rfsoc_4x2_getting_started.html)
+* [RFSoC 4x2 board overview](rfsoc_4x2_overview.html)
+* [RFSoC 4x2 getting started guide](rfsoc_4x2_getting_started.html)
 
 ### ZCU111 and ZCU208
 * [ZCU111 and ZCU208](https://github.com/Xilinx/PYNQ_RFSOC_Workshop)

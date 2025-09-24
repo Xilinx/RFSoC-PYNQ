@@ -13,11 +13,11 @@ Questions about using PYNQ on the RFSoC 4x2 can be posted to the PYNQ support fo
 You can also check for other RFSoC 4x2 projects, and post your own in the [Community Corner](https://discuss.pynq.io/c/community-projects-chat/14). 
 
 
-## AMD | Xilinx support
+## AMD support
 
-Questions related to AMD | Xilinx tools and building designs for your board, including HLS design, can be posted on the Xilinx technical support forums:
+Questions related to AMD tools and building designs for your board, including HLS design, can be posted on the AMD technical support forums:
 
-* [Xilinx Support Forum](https://forums.xilinx.com)
+* [Adaptive SoC & FPGA Support Forum](https://adaptivesupport.amd.com)
 
 
 ## Hardware problems
