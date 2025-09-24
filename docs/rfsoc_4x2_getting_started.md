@@ -33,7 +33,7 @@ You can watch the getting started video guide or follow the instructions below. 
 
 Your board comes with a Micro SD card, pre-loaded with a PYNQ image. An updated PYNQ image may be available.
 
-* Download the [RFSoC 4x2 latest PYNQ image](http://www.pynq.io/board.html) and write the image to a Micro SD card
+* Download the [RFSoC 4x2 latest PYNQ image](https://www.pynq.io/boards.html) and write the image to a Micro SD card
 
 See the PYNQ documentation on [writing an image to an SD card](https://pynq.readthedocs.io/en/latest/appendix/sdcard.html) for more information. 
 

@@ -63,7 +63,8 @@ class AmplitudeController(DefaultIP):
     @gain.setter
     def gain(self, gain):
         if 0 <= gain <= 1:
-            int_gain = int(gain*0x7FFF*0x00000001) | int(gain*0x7FFF*0x00010000)
+            scaled = int(gain * 0x7FFF)
+            int_gain = (scaled & 0xFFFF) | ((scaled & 0xFFFF) << 16)
             self.write(0x04, int_gain)
         else:
             raise ValueError('Programmable Gain must be in range 0 to 1.')

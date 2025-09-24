@@ -23,7 +23,7 @@ The *RFSoC 2x2* was developed by the PYNQ team in partnership with HTG. The boar
 ## Quick links
 
 * If you have a board, follow the [RFSoC 2x2 getting started guide](rfsoc_2x2_getting_started.html)
-* Download the [RFSoC 2x2 PYNQ image](http://www.pynq.io/board.html)
+* Download the [RFSoC 2x2 PYNQ image](https://www.pynq.io/boards.html)
 * [RFSoC 2x2 User Guide](./pdf/HTG-ZRF8_UG.pdf)
 * [RFSoC 2x2 Schematic](./pdf/HTG-ZRF2-XUP_REV_11_Schematic_20Jan21.pdf)
 

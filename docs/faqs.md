@@ -4,7 +4,7 @@ layout: default
 
 # Frequently Asked Questions
 
-These FAQ are primarily for the RFSoC 4x2 and 2x2. 
+These FAQ are primarily for the RFSoC 4x2 and 2x2.
 
 ## Can you tell me more about the RFSoC 4x2?
 
@@ -14,7 +14,6 @@ chain, sourcing some parts on the RFSoC 2x2 became increasingly difficult. Our f
 the 2x2 board to use only parts that were more readily available. However, we took this instead
 as an opportunity to design a completely new board, the RFSoC 4x2. This new board retains all the best features of the 2x2 while adding the most commonly-requested new features,
 especially the most sought after feature - an upgrade to the Zynq UltraScale+ RFSoC Gen 3.
-
 
 ## How does the RFSoC 4x2 compare to the RFSoC 2x2?
 
@@ -52,7 +51,7 @@ For more details see the [Overlays](./overlays.md), and [Educational resources](
 ## How to I buy an RFSoC 4x2 board?
 
 The RFSoC 4x2 is manufactured and sold by [Real Digital](https://www.realdigital.org/). The board is only available to academia and to buy the board, academics must first apply
-to the [AMD Xilinx University Program](https://www.xilinx.com/support/university/xup-boards/RFSoC4x2.html#Purchasing_at_academic_price)  to get pre-approval to purchase the RFSoC 4x2 kit. and submit a request to purchase the RFSoC 4x2. 
+to the [AMD Xilinx University Program](https://www.xilinx.com/support/university/xup-boards/RFSoC4x2.html#Purchasing_at_academic_price)  to get pre-approval to purchase the RFSoC 4x2 kit. and submit a request to purchase the RFSoC 4x2.
 
 ## Who are Real Digital?
 
@@ -62,7 +61,7 @@ founded four years ago by Clint Cole. Some of you will know that Clint previousl
 and later sold it to National Instruments. He has a long pedigree of producing excellent development
 boards for use in academia.
 
-## How have you made the board more *Open Source*? 
+## How have you made the board more *Open Source*?
 
 Real Digital have also helped us to deliver on our vision of making the RFSoC 4x2 a more fully open-source
 project. So not just the RFSoC-PYNQ framework and design examples but also the board
@@ -70,7 +69,7 @@ schematics, bill of materials, and even the PCB Gerber files are available open-
 research teams, for example, to use the RFSoC 4x2 as the starting point for developing custom
 boards which they may require in their specific research experiments.
 
-To get access to the PCB Gerber files [contact XUP](mailto:xup@xilinx.com).
+To get access to the PCB Gerber files [contact XUP](mailto:xup@amd.com).
 
 ## Can I still purchase an RFSoC 2x2?
 
@@ -88,5 +87,3 @@ future. Any change in this status will be communicated with a minimum advance no
 Even after new development for the RFSoC 2x2 boards stops, it will be possible to continue using the
 last, feature-frozen version of the RFSoC-PYNQ framework and the source software will continue to
 be available.
-
-

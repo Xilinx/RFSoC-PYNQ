@@ -8,7 +8,7 @@ RFSoC-PYNQ is delivered as an SD Card image for supported boards. The image is c
 
 ## Supported boards 
 
-RFSoC-PYNQ images are available for the following boards and can be downloaded from the [PYNQ.io board images](http://www.pynq.io/board) webpage.
+RFSoC-PYNQ images are available for the following boards and can be downloaded from the [PYNQ.io board images](https://www.pynq.io/boards.html) webpage.
 
 * RFSoC 2x2
 * RFSoC 4x2
