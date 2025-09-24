@@ -84,7 +84,7 @@ class BaseOverlay(pynq.Overlay):
         self.display_port_initialized = True
 
     def init_i2c(self):
-        """Initialize the I2C control drivers on RFSoC2x2.
+        """Initialize the I2C control drivers.
         This should happen after a bitstream is loaded since I2C reset
         is connected to PL pins. The I2C-related drivers are made loadable
         modules so they can be removed or inserted.
