@@ -24,9 +24,9 @@ For optional image rebuilding for any of the boards, you will need a Linux (Ubun
 
 	| Board  | BSP Link |
 	| ------------- | ------------- |
-	| ZCU111  | Link coming soon...  |
+	| RFSoC4x2  | [RFSoC4x2_2024.1.bsp](https://github.com/RealDigitalOrg/RFSoC4x2-BSP/raw/refs/heads/master/bsp_releases/RFSoC4x2_2024_1.bsp)  |
 	| ZCU208  | [xilinx-zcu208-v2024.1.bsp](https://www.xilinx.com/member/forms/download/xef.html?filename=xilinx-zcu208-v2024.1-05230256.bsp)  |
-	| RFSoC4x2  | Link coming soon...  |
+	| ZCU111  | Link coming soon...  |
 	
 	```
 	cp <local-path-to-bsp> boards/<BOARD>/<BOARD>.bsp
