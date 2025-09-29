@@ -20,7 +20,7 @@ For optional image rebuilding for any of the boards, you will need a Linux (Ubun
 	git clone --recursive https://github.com/Xilinx/RFSoC-PYNQ.git
 	```
 
-1. Copy the BSP (board support package) into the appropriate board folder.
+2. Copy the BSP (board support package) into the appropriate board folder.
 
 	| Board  | BSP Link |
 	| ------------- | ------------- |
@@ -32,18 +32,24 @@ For optional image rebuilding for any of the boards, you will need a Linux (Ubun
 	cp <local-path-to-bsp> boards/<BOARD>/<BOARD>.bsp
 	```
 
-3. To rebuild just the base overlay, run
+3. To rebuild the SD card image, run
 	
 	```
-	make BOARD=<BOARD> base
+	make BOARD=<BOARD>
 	```
-4. To rebuild the SD card image, run
-	
-	```
-	make BOARD=<BOARD> image
-	```
+
+## Rebuilding the Base Overlay
+
+To only rebuild the base overlay for a given board, make sure the Vivado tools are sourced and located on `$PATH`, then run
+
+```
+cd boards/<BOARD>/base
+make
+```
+
 ---
 Copyright (C) 2022 Xilinx, Inc
+
 Copyright (C) 2022-2025 Advanced Micro Devices, Inc
 
 SPDX-License-Identifier: BSD-3-Clause
