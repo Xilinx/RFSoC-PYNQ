@@ -17,5 +17,3 @@ The RFSOC 4x2 is currently only available to staff at accredited Universities an
 To purchase a board, you must [submit a purchase approval request to the AMD University Program](https://www.amd.com/en/corporate/university-program/aup-boards/rfsoc4x2.html). You will be contacted by the AMD University Program after you submit your request with further details on how to complete your purchase.
 
 For any other enquiries including purchases for industry, please [contact the AMD University Program](mailto:aup@amd.com).
-
-For any other enquiries including purchases for industry, please [contact the AMD University Program](mailto:aup@amd.com).
