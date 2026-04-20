@@ -3,7 +3,17 @@
 
 
 import os
+import sys
+import platform
 os.environ['BOARD'] = 'ZCU208'
+
+from pynq.ps import ON_TARGET
+
+if not ON_TARGET:
+    if platform.system() == "Windows":
+        import winfcntl
+        sys.modules["fcntl"] = winfcntl
+
 import xrfclk
 import rfsystem
 from smbus2 import SMBus, i2c_msg
@@ -72,6 +82,10 @@ class BaseOverlay(pynq.Overlay):
             To force the corresponding service to restart or not.
 
         """
+        if not ON_TARGET:
+            raise RuntimeError(
+                "Display port initialization not supported in remote mode.")
+
         if force:
             cmd = "systemctl restart {0}".format(service)
         else:
@@ -89,6 +103,10 @@ class BaseOverlay(pynq.Overlay):
         is connected to PL pins. The I2C-related drivers are made loadable
         modules so they can be removed or inserted.
         """
+        if not ON_TARGET:
+            raise RuntimeError(
+                "I2C initialization not supported in remote mode.")
+
         module_list = ['i2c_dev', 'i2c_mux_pca954x', 'i2c_mux']
         for module in module_list:
             cmd = "if lsmod | grep {0}; then rmmod {0}; fi".format(module)
