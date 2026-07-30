@@ -1,78 +1,62 @@
 # RFSoC4x2 Self-test Package
 
-This package implements a simple Python script to test the RFSoC4x2 board.
-If this package has been added, when you boot up the RFSoC4x2 board,
-the board will enter automatic testing mode and test multiple components.
-The test will finish after around 90 seconds. Test logs will be shown
-on your serial terminal, and they will also be saved into the boot partition
-of your SD card.
+This package installs `pynq-selftest`, a headless CLI script that verifies a
+booted RFSoC4x2 PYNQ image (image-level checks plus base-overlay peripheral
+checks).
 
-## Add Self-test Package
 
-Users can choose to either add this package manually, or add this package
-automatically during PYNQ SD build flow.
+## Running
 
-To add it manually, in the boot partition of your SD card, just replace the
-original `boot.py` file with the one listed in this package. You can also
-leverage the following script (under `su`).
+Run it on the board as root:
 
 ```bash
-cd /boot
-cp -f boot.py boot.py.old
-curl -o boot.py \
-https://raw.githubusercontent.com/Xilinx/RFSoC4x2-PYNQ/master/board/RFSoC4x2/packages/selftest/boot.py
-reboot
+sudo pynq-selftest
 ```
 
-To add it into SD build flow, modify the `RFSoC4x2.spec` file to include it.
-It is recommended to add it to the very end of the `RFSoC4x2.spec` file, 
-since this `boot.py` will overwrite all the previous changes in your `boot.py`.
+Results are printed to the terminal and saved to
+`/tmp/pynq-selftest.<timestamp>.log`. The script exits non-zero if any check
+fails, so it can also be used in automated bring-up. Pass `--no-peripherals` to
+run only the software/image checks and skip the base-overlay hardware checks.
 
-## Board Connection
+Checks whose hardware is absent are reported as `[SKIP]`, not `[FAIL]`.
 
-To use this package, please use the following steps:
+The self-test is added automatically by the PYNQ SD build flow via the
+`RFSoC4x2.spec` `STAGE4_PACKAGES` list (entry `selftest`).
 
-![alt](./RFSoC4x2-Connections-TopDown-View.png)
+## What is tested
 
-1. Connect an SMA loopback as shown in the above picture:
-	* RF-DAC A -> female to 2 male splitter -> RF-ADCs A,B
-	* RF-DAC B -> female to 2 male splitter -> RF-ADCs C,D
+Image-level checks (no external hardware needed), tests `[1]`–`[18]`: root
+filesystem auto-resize, global IPv4, CMA pool (~512 MB), Jupyter on `:9090`, XRT
+device open, PYNQ overlay + DMA allocate, no unexpected failed units, image
+identity (`PynqLinux`), `xilinx` user/groups, notebook delivery, serial
+autologin, merged-/usr, base-config patches, sysfs GPIO, pybind11 compile,
+internet connectivity, overlay download + install (`rfsoc_sam`), and that
+`arduino`/`rpi`/`logictools` are dropped.
 
-2. Plug in the SD card (which has the image burned onto it) into the slot.
-3. (optional) connect serial port to your PC, if you want to check some
-   debugging message on your serial terminal.
-4. Connect the power barrel.
-5. Connect the Ethernet cable.
-6. Connect CMAC loopback module.
-7. Connect PMOD loopback cable
-8. Connect the SYZYGY loopback module.
+Board-specific checks, tests `[19]`–`[30]`:
 
-## Components Tested
+* **`[19]` Pmod/Grove MicroBlaze firmware** — the prebuilt `pmod_*.bin` are present.
+* **`[20]` RFSoC Python stack** — `xrfclk`, `xrfdc`, `xsdfec`, `rfsystem` import.
+* **`[21]` LMK clock-control GPIO** — resolves the EMIO gpiochip base at runtime
+  (matching `ff0a0000.gpio`, never hardcoded) and opens the LMK reset/clk-sel lines.
+* **`[22]` PMBus power rails** — reads the on-board rails via `get_rails()` and
+  checks each is within ±10% of its nominal voltage.
+* **`[23]` LEDs / buttons / switches** — reads all switches/buttons and toggles LEDs.
+* **`[24]` RGB LEDs** — cycles both on-board RGB LEDs.
+* **`[25]` RF reference clocks** — `init_rf_clks()` programs the LMK04828 + LMX2594.
+* **`[26]` RF-DC radio hierarchy** — reads the `base.radio` tx/rx channel descriptions.
+* **`[27]` CMAC 100G** — a DMA round-trip through the CMAC's internal loopback.
+* **`[28]` On-board OLED** — initialises the OLED and writes text.
+* **`[29]` PMODA MicroBlaze IOP** — compiles and boots a program on the Pmod IOP.
+* **`[30]` USB webcam** — captures a frame from `/dev/video0`; skipped if absent.
 
-The following components will be tested in order:
-
-1. Serial terminal is initialized and tested if connected.
-2. PL_LED0 will be turned on if:
-	* MAC address is valid.
-	* LEDs can be configured.
-	* I2C bus can be initialized.
-	* PMODs can write/read GPIO
-	* SYZYGY can be enabled.
-	* Power Management bus (PMBus) can be detected.
-3. PL_LED1 will be turned on if:
-	* LMX and LMK clock chips can be programmed.
-4. PL_LED2 will be turned on if:
-	* PMBus functions properly during spectrum sweep. 
-5. PL_LED3 will be turned on if:
-	* RF components work properly during spectrum sweep.
-
-If all the components work fine, both RGB LEDs (PL_RGB0 and PL_RGB1) will be green.
-Otherwise they will both be red, indicating a failed test. You will also
-see 'TEST PASS' or 'TEST FAIL' on the OLED display and your terminal.
+Tests `[23]`–`[30]` program `base.bit` and exercise the base-overlay peripherals;
+`[21]`–`[22]` run before the overlay is loaded so they do not disturb the RF
+clock configuration.
 
 ----
 
 Copyright (C) 2022 Xilinx, Inc
-Copyright (C) 2022-2025 Advanced Micro Devices, Inc
+Copyright (C) 2022-2026 Advanced Micro Devices, Inc
 
 SPDX-License-Identifier: BSD-3-Clause
