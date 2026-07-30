@@ -4,7 +4,7 @@
 ARCH_ZCU208 := aarch64
 BSP_ZCU208 := ZCU208.bsp
 
-REMOTE_PACKAGES_ZCU208 := rfdc rfdc-dev libmetal libmetal-dev xrfclk-tics
+REMOTE_PACKAGES_ZCU208 := librfdc xrfclk-tics
 
 STAGE4_PACKAGES_ZCU208 := pynq ethernet xrt xrfclk xrfdc xsdfec
-STAGE4_PACKAGES_ZCU208 += smbus2 rfsystem tics
+STAGE4_PACKAGES_ZCU208 += smbus2 rfsystem tics selftest
