@@ -1,4 +1,5 @@
 # Copyright (C) 2022 Xilinx, Inc
+# Copyright (C) 2022-2026 Advanced Micro Devices, Inc.
 # SPDX-License-Identifier: BSD-3-Clause
 
 PREBUILT_ROOTFS_DST := ${CURDIR}/pynq/sdbuild/prebuilt/pynq_rootfs.aarch64.tar.gz
