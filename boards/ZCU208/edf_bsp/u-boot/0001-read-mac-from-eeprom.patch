@@ -1,0 +1,74 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Josh Goldsmith <josh.goldsmith@amd.com>
+Date: Tue, 28 Jul 2026 13:00:00 +0100
+Subject: [PATCH] ZCU208: read fixed MAC from board EEPROM
+
+---
+ board/xilinx/common/board.c | 38 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 38 insertions(+)
+
+diff --git a/board/xilinx/common/board.c b/board/xilinx/common/board.c
+index 9641ed307b7..81f38bcaf0b 100644
+--- a/board/xilinx/common/board.c
++++ b/board/xilinx/common/board.c
+@@ -34,6 +34,8 @@
+ 
+ #include "fru.h"
+ 
++#include <i2c.h>   /* i2c_get_chip_for_busnum, dm_i2c_read */
++
+ #if IS_ENABLED(CONFIG_EFI_HAVE_CAPSULE_SUPPORT)
+ struct efi_fw_image fw_images[] = {
+ #if defined(XILINX_BOOT_IMAGE_GUID)
+@@ -406,6 +408,31 @@ static int env_set_by_index(const char *name, int index, char *data)
+ 	return env_set(var, data);
+ }
+ 
++static int zcu208_read_fixed_mac(u8 mac[ETH_ALEN])
++{
++    struct udevice *dev;
++    int bus, ret;
++	#define ZCU208_MAC_I2C_OFFSET 0x23
++
++    /* The board MAC EEPROM (0x54, offset 0x23) sits on a board i2c bus whose
++     * number depends on the device tree, so scan every probed bus. */
++    for (bus = 0; bus < 8; bus++) {
++        ret = i2c_get_chip_for_busnum(bus, CONFIG_SYS_I2C_EEPROM_ADDR, 1, &dev);
++        if (ret)
++            continue;
++        ret = dm_i2c_read(dev, ZCU208_MAC_I2C_OFFSET, mac, ETH_ALEN);
++        if (ret)
++            continue;
++        if (is_valid_ethaddr(mac)) {
++            printf("MAC: read from board EEPROM on i2c bus %d\n", bus);
++            return 0;
++        }
++    }
++
++    printf("MAC: no valid MAC in board EEPROM on any i2c bus\n");
++    return -ENODEV;
++}
++
+ int board_late_init_xilinx(void)
+ {
+ 	u32 ret = 0;
+@@ -493,6 +520,17 @@ int board_late_init_xilinx(void)
+ 		}
+ 	}
+ 
++    /* If no valid ethaddr was set by FRU/DT, read the board MAC EEPROM */
++    u8 mac[ETH_ALEN];
++    uchar cur[ETH_ALEN];
++
++    if (eth_env_get_enetaddr("ethaddr", cur) && is_valid_ethaddr(cur)) {
++        /* already set; do nothing */
++    } else if (!zcu208_read_fixed_mac(mac)) {
++        eth_env_set_enetaddr("ethaddr", mac);
++        printf("MAC: set ethaddr from EEPROM: %pM\n", mac);
++	}
++
+ 	if (ret)
+ 		printf("%s: Saving run time variables FAILED\n", __func__);
+ 
+-- 
+2.49.0

@@ -1,5 +1,6 @@
 #! /bin/bash
-# Copyright (C) 2021 Xilinx, Inc
+# Copyright (C) 2021-2022 Xilinx, Inc
+# Copyright (C) 2022-2026 Advanced Micro Devices, Inc.
 # SPDX-License-Identifier: BSD-3-Clause
 
 set -x
@@ -7,7 +8,8 @@ set -e
 
 . /etc/environment
 
-dest=/usr/local/share/pynq-venv/lib/python3.10/site-packages/xrfclk
+dest=$(ls -d /usr/local/share/pynq-venv/lib/python3.*/site-packages/xrfclk 2>/dev/null | head -1)
+if [ -z "$dest" ]; then echo "ERROR: xrfclk not found under pynq-venv (xrfclk must be installed first)" >&2; exit 1; fi
 
 cd /root/tics_build
 cp -a . $dest
