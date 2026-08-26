@@ -1,0 +1,80 @@
+{
+  "board": "RFSoC4x2",
+  "defaults": { "hardware": false, "timeout": 30 },
+  "tests": [
+    { "id": "bash/resize", "name": "Root filesystem auto-resize" },
+    { "id": "bash/networking", "name": "Networking (global IPv4)" },
+    { "id": "python/cma", "name": "CMA pool" },
+    { "id": "python/jupyter", "name": "Jupyter server" },
+    { "id": "python/xrt", "name": "XRT runtime" },
+    { "id": "bash/systemd_units", "name": "systemd failed units" },
+    { "id": "python/image_identity", "name": "Image identity (PynqLinux; version read from image)" },
+    { "id": "python/user_groups", "name": "xilinx user + groups" },
+    { "id": "python/notebooks", "name": "Notebook delivery" },
+    { "id": "bash/serial_autologin", "name": "Serial console autologin" },
+    { "id": "bash/merged_usr", "name": "merged-/usr layout" },
+    { "id": "python/baseconfig", "name": "base-config patches" },
+    { "id": "python/sysfs_gpio", "name": "sysfs GPIO interface" },
+    { "id": "python/dropped_libs", "name": "Dropped libs (arduino/rpi/logictools removed)" },
+    { "id": "python/pmod_firmware", "name": "Pmod/Grove MicroBlaze firmware installed" },
+    { "id": "python/rfsoc_stack", "name": "RFSoC Python stack (xrfclk, xrfdc, xsdfec, rfsystem)",
+      "params": { "modules": ["xrfclk", "xrfdc", "xsdfec", "rfsystem"] } },
+    { "id": "python/pybind11", "name": "pybind11 C++ compile + import", "timeout": 120 },
+    { "id": "python/overlay_allocate", "name": "PYNQ overlay + DMA buffer", "timeout": 90,
+      "params": { "bitstream": "base.bit" } },
+    { "id": "python/lmk_gpio", "name": "LMK clock-control GPIO (dynamic gpiochip base)", "timeout": 20, "hardware": true,
+      "params": {
+        "emio_gpio_addr": "ff0a0000.gpio",
+        "lmk_reset_off": 7,
+        "lmk_clk_sel0_off": 8,
+        "lmk_clk_sel1_off": 12
+      } },
+    { "id": "python/power_rails", "name": "PMBus power rails (nominal voltages)", "timeout": 30, "hardware": true,
+      "params": {
+        "rails": {
+          "VCCp0V85": [0.765, 0.935],
+          "VCCp3V3": [2.97, 3.63],
+          "VCCp1V8": [1.62, 1.98],
+          "VDAC_AVCC": [0.8325, 1.0175],
+          "VADC_AVCC": [0.8325, 1.0175],
+          "VADC_AVCCAUX": [1.62, 1.98],
+          "VDAC_AVCCAUX": [1.62, 1.98],
+          "VDAC_AVTT": [2.25, 2.75]
+        }
+      } },
+    { "id": "python/leds", "name": "LEDs (AXI GPIO out)", "timeout": 20, "hardware": true,
+      "params": { "bitstream": "base.bit", "expected_count": 4 } },
+    { "id": "python/buttons_switches", "name": "Buttons + DIP switches (AXI GPIO in)", "timeout": 20, "hardware": true,
+      "params": { "bitstream": "base.bit", "expected_buttons": 5, "expected_switches": 4 } },
+    { "id": "python/register_map", "name": "register_map read/write", "timeout": 20, "hardware": true,
+      "params": { "bitstream": "base.bit", "led_ip": "leds_gpio", "button_ip": "btns_gpio" } },
+    { "id": "python/rgbleds", "name": "RGB LEDs", "timeout": 20, "hardware": true },
+    { "id": "python/rf_clocks", "name": "RF reference clocks (init_rf_clks)", "timeout": 90, "hardware": true,
+      "params": { "mode": "init_rf_clks", "message": "init_rf_clks() configured the LMK04828 + LMX2594 reference clocks" } },
+    { "id": "python/rfdc", "name": "RF-DC radio hierarchy (xrfdc)", "timeout": 90, "hardware": true },
+    { "id": "python/cmac_loopback", "name": "CMAC 100G internal + external (QSFP) loopback DMA", "timeout": 90, "hardware": true },
+    { "id": "python/oled", "name": "On-board OLED display", "timeout": 30, "hardware": true,
+      "params": { "module": "rfsoc4x2.oled", "class": "oled_display", "line1": "PYNQ self-test", "line2": "RFSoC4x2" } },
+    { "id": "python/pmod_oled_grove", "name": "Pmod OLED (PMODB) + Grove temperature (PMODA G4)", "timeout": 60, "hardware": true,
+      "params": {
+        "bitstream": "base.bit",
+        "oled_port": "PMODB",
+        "grove_port": "PMODA",
+        "grove_pin": "G4",
+        "oled_text": "RFSoC4x2 test"
+      } },
+    { "id": "python/pmod_microblaze", "name": "PMODB MicroBlaze IOP (compile + run)", "timeout": 90, "hardware": true,
+      "params": { "bitstream": "base.bit", "port": "PMODB" } },
+    { "id": "python/usb3", "name": "USB3 SuperSpeed link", "timeout": 20, "hardware": true },
+    { "id": "python/webcam", "name": "USB webcam (/dev/video0)", "timeout": 35, "hardware": true },
+    { "id": "python/spi", "name": "PS SPI controllers (spidev + ref clocks)", "timeout": 20 },
+    { "id": "bash/mac", "name": "Static MAC from EEPROM (not random)" },
+    { "id": "python/internet", "name": "Internet connectivity", "timeout": 45 },
+    { "id": "python/deb_src", "name": "deb-src source availability (apt-get source)", "timeout": 40 },
+    { "id": "python/overlay_download", "name": "Overlay download + install (rfsoc_qpsk)", "timeout": 360,
+      "params": {
+        "pip_url": "https://github.com/strath-sdr/rfsoc_qpsk/releases/download/v1.5.0/rfsoc_qpsk.tar.gz",
+        "module": "rfsoc_qpsk"
+      } }
+  ]
+}
