@@ -1,0 +1,35 @@
+{
+  "board": "ZCU111",
+  "defaults": { "hardware": false, "timeout": 30 },
+  "tests": [
+    { "id": "bash/resize", "name": "Root filesystem auto-resize" },
+    { "id": "bash/networking", "name": "Networking (global IPv4)" },
+    { "id": "python/cma", "name": "CMA pool" },
+    { "id": "python/jupyter", "name": "Jupyter server" },
+    { "id": "python/xrt", "name": "XRT runtime" },
+    { "id": "python/dma_allocate", "name": "PYNQ DMA buffer (allocate)", "timeout": 90 },
+    { "id": "bash/systemd_units", "name": "systemd failed units" },
+    { "id": "python/image_identity", "name": "Image identity (PynqLinux; version read from image)" },
+    { "id": "python/user_groups", "name": "xilinx user + groups" },
+    { "id": "python/notebooks", "name": "Notebook delivery" },
+    { "id": "bash/serial_autologin", "name": "Serial console autologin" },
+    { "id": "bash/merged_usr", "name": "merged-/usr layout" },
+    { "id": "python/baseconfig", "name": "base-config patches" },
+    { "id": "python/sysfs_gpio", "name": "sysfs GPIO interface" },
+    { "id": "python/dropped_libs", "name": "Dropped libs (arduino/rpi/logictools removed)" },
+    { "id": "python/rfsoc_stack", "name": "RFSoC Python stack (xrfclk, xrfdc, xsdfec)",
+      "params": { "modules": ["xrfclk", "xrfdc", "xsdfec"] } },
+    { "id": "python/pybind11", "name": "pybind11 C++ compile + import", "timeout": 120 },
+    { "id": "bash/mac", "name": "Static MAC from EEPROM (not random)" },
+    { "id": "python/internet", "name": "Internet connectivity", "timeout": 45 },
+    { "id": "python/deb_src", "name": "deb-src source availability (apt-get source)", "timeout": 40 },
+    { "id": "python/overlay_download", "name": "Overlay download + install (rfsoc_qpsk)", "timeout": 300,
+      "params": {
+        "pip_url": "https://github.com/strath-sdr/rfsoc_qpsk/releases/download/v1.5.0/rfsoc_qpsk.tar.gz",
+        "module": "rfsoc_qpsk"
+      } },
+    { "id": "python/qpsk_overlay", "name": "QPSK overlay load (rfsoc_qpsk)", "timeout": 120, "hardware": true },
+    { "id": "python/rf_clocks", "name": "RF reference clocks (LMK04208 + LMX2594)", "timeout": 90, "hardware": true,
+      "params": { "mode": "spi_enumeration", "load_qpsk": true } }
+  ]
+}

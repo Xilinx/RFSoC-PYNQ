@@ -1,0 +1,50 @@
+{
+  "board": "ZCU208",
+  "defaults": { "hardware": false, "timeout": 30 },
+  "tests": [
+    { "id": "bash/resize", "name": "Root filesystem auto-resize" },
+    { "id": "bash/networking", "name": "Networking (global IPv4)" },
+    { "id": "python/cma", "name": "CMA pool" },
+    { "id": "python/jupyter", "name": "Jupyter server" },
+    { "id": "python/xrt", "name": "XRT runtime" },
+    { "id": "bash/systemd_units", "name": "systemd failed units" },
+    { "id": "python/image_identity", "name": "Image identity (PynqLinux; version read from image)" },
+    { "id": "python/user_groups", "name": "xilinx user + groups" },
+    { "id": "python/notebooks", "name": "Notebook delivery" },
+    { "id": "bash/serial_autologin", "name": "Serial console autologin" },
+    { "id": "bash/merged_usr", "name": "merged-/usr layout" },
+    { "id": "python/baseconfig", "name": "base-config patches" },
+    { "id": "python/sysfs_gpio", "name": "sysfs GPIO interface" },
+    { "id": "python/dropped_libs", "name": "Dropped libs (arduino/rpi/logictools removed)" },
+    { "id": "python/rfsoc_stack", "name": "RFSoC Python stack (xrfclk, xrfdc, xsdfec)",
+      "params": { "modules": ["xrfclk", "xrfdc", "xsdfec"] } },
+    { "id": "python/pybind11", "name": "pybind11 C++ compile + import", "timeout": 120 },
+    { "id": "python/overlay_allocate", "name": "PYNQ overlay + DMA buffer", "timeout": 90,
+      "params": { "bitstream": "base.bit" } },
+    { "id": "python/rf_clocks", "name": "RF reference clocks (init_rf_clks)", "timeout": 90, "hardware": true,
+      "params": { "mode": "init_rf_clks", "message": "init_rf_clks() configured the LMK/LMX reference clocks" } },
+    { "id": "python/pl_ddr", "name": "PL DDR4 (DSPmemory/DSPddr4)", "timeout": 20, "hardware": true,
+      "params": { "mem_key": "DSPmemory/DSPddr4" } },
+    { "id": "python/sfp", "name": "SFP 25G XXV internal + external loopback DMA", "timeout": 50, "hardware": true,
+      "params": {
+        "container": "OffloadEngine",
+        "xxv_ip": "xxv_ethernet_0",
+        "dma_ip": "axi_dma_0"
+      } },
+    { "id": "python/leds", "name": "LEDs (AXI GPIO out)", "timeout": 20, "hardware": true,
+      "params": { "bitstream": "base.bit", "expected_count": 8 } },
+    { "id": "python/buttons_switches", "name": "Buttons + DIP switches (AXI GPIO in)", "timeout": 20, "hardware": true,
+      "params": { "bitstream": "base.bit", "expected_buttons": 5, "expected_switches": 8 } },
+    { "id": "python/register_map", "name": "register_map read/write", "timeout": 20, "hardware": true,
+      "params": { "bitstream": "base.bit", "led_ip": "leds_gpio", "button_ip": "btns_gpio" } },
+    { "id": "python/webcam", "name": "USB webcam (/dev/video0)", "timeout": 35, "hardware": true },
+    { "id": "bash/mac", "name": "Static MAC from EEPROM (not random)" },
+    { "id": "python/internet", "name": "Internet connectivity", "timeout": 45 },
+    { "id": "python/deb_src", "name": "deb-src source availability (apt-get source)", "timeout": 40 },
+    { "id": "python/overlay_download", "name": "Overlay download + install (rfsoc_qpsk)", "timeout": 300,
+      "params": {
+        "pip_url": "https://github.com/strath-sdr/rfsoc_qpsk/releases/download/v1.5.0/rfsoc_qpsk.tar.gz",
+        "module": "rfsoc_qpsk"
+      } }
+  ]
+}
