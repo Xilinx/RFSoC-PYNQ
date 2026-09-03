@@ -23,6 +23,7 @@ endif
 
 VERSION := 4.0.0
 IMAGE := ${BOARD}-${VERSION}.img
+REMOTE_IMAGE := ${BOARD}-${VERSION}-remote.img
 
 all: checkenv_rfsocpynq gitsubmodule ${PREBUILT_SDIST_DST} ${PREBUILT_ROOTFS_DST} checkenv_pynq ${BASE_OVERLAY} ${BSP_XSA} ${IMAGE}
 	@echo ""
@@ -56,10 +57,10 @@ ifneq ($(wildcard $(BSP_PATH)),)
 	cd ${CURDIR}/boards/${BOARD}/bsp && make
 endif
 
-${IMAGE}:
+${IMAGE}: ${PREBUILT_SDIST_DST} ${PREBUILT_ROOTFS_DST} ${BASE_OVERLAY} ${BSP_XSA}
 	cd ${CURDIR}/pynq/sdbuild && make BOARDDIR=${CURDIR}/boards BOARDS=${BOARD}
-	mv ${CURDIR}/pynq/sdbuild/output/${BOARD}*.img ${IMAGE}
+	mv ${CURDIR}/pynq/sdbuild/output/${IMAGE} ${IMAGE}
 
 pynqremote: ${BSP_XSA}
 	cd ${CURDIR}/pynq/sdbuild && make pynqremote BOARDDIR=${CURDIR}/boards BOARDS=${BOARD}
-	mv ${CURDIR}/pynq/sdbuild/output/${BOARD}*.img ${IMAGE}
+	mv ${CURDIR}/pynq/sdbuild/output/${REMOTE_IMAGE} ${REMOTE_IMAGE}
