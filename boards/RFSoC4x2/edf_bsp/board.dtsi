@@ -6,6 +6,13 @@
  * base dts is pre-flattened and carries no dt-bindings include path. */
 
 / {
+	aliases {
+		/delete-property/ i2c0;
+		/delete-property/ i2c1;
+		i2c0 = &i2c0;
+		i2c1 = &i2c1;
+	};
+
 	reserved-memory {
 		#address-cells = <2>;
 		#size-cells = <2>;
@@ -32,6 +39,18 @@
 		#clock-cells = <0x00>;
 		clock-frequency = <26000000>;
 	};
+
+	dpcon {
+		compatible = "dp-connector";
+		label = "DP";
+		type = "mini";
+
+		port {
+			dpcon_in: endpoint {
+				remote-endpoint = <&dpsub_dp_out>;
+			};
+		};
+	};
 };
 
 &gem1 {
@@ -57,7 +76,19 @@
 };
 
 &zynqmp_dpsub {
+	status = "okay";
+	phy-names = "dp-phy0", "dp-phy1";
 	phys = <&psgtr 1 6 0 1>, <&psgtr 0 6 1 1>;
+};
+
+&zynqmp_dpdma {
+	status = "okay";
+};
+
+&out_dp {
+	dpsub_dp_out: endpoint {
+		remote-endpoint = <&dpcon_in>;
+	};
 };
 
 &usb0 {
