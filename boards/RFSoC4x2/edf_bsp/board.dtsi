@@ -93,27 +93,27 @@
 
 &usb0 {
 	status = "okay";
-	phy-names = "usb3-phy";
-	phys = <&psgtr 2 4 0 0>;
+	phys = <&psgtr 2 4 0 1>;
 };
 
 &dwc3_0 {
 	status = "okay";
 	dr_mode = "peripheral";
 	snps,usb3_lpm_capable;
+	phy-names = "usb3-phy";
 	maximum-speed = "super-speed";
 };
 
 &usb1 {
 	status = "okay";
-	phy-names = "usb3-phy";
-	phys = <&psgtr 3 4 1 0>;
+	phys = <&psgtr 3 4 1 1>;
 };
 
 &dwc3_1 {
 	status = "okay";
 	dr_mode = "host";
 	snps,usb3_lpm_capable;
+	phy-names = "usb3-phy";
 	maximum-speed = "super-speed";
 };
 
