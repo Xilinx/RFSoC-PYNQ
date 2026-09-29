@@ -1,0 +1,11 @@
+[Unit]
+Description=RFSoC4x2 LMK clock select/reset
+Before=pynq-remote.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/rfclk-init.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

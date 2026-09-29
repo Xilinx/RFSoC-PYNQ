@@ -19,6 +19,11 @@ thumbs.db
 ######################
 *.log
 
+# Python bytecode cache
+######################
+__pycache__/
+*.pyc
+
 # VIM Swap Files
 ######################
 *.swp
@@ -30,6 +35,11 @@ thumbs.db
 # Ignore ./base.base
 ######################
 **/base/base/
+
+# Ignore the minimal BSP design Vivado project + board files
+######################
+**/bsp/bsp/
+**/bsp/board_files/
 
 # Vivado Files
 *.jou

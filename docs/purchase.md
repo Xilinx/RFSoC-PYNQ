@@ -4,8 +4,6 @@ layout: default
 
 # Purchase a PYNQ-RFSoC supported board
 
-The RFSoC 2x2 has been discontinued. The [RFSoC 4x2](rfsoc_4x2_overview.html) is the recommended replacement.
-
 ZCU111, ZCU208 and other RFSoC boards can be purchased from [AMD](https://www.amd.com/en/products/adaptive-socs-and-fpgas/evaluation-boards.html), [AMD authorised distributors](https://www.amd.com/en/corporate/locations.html?preSelect=Authorized%20Distributors#authorizedDistributors). Other RFSoC boards may be available from [AMD partners](https://www.amd.com/en/partner/partner-network/embedded-partners.html). 
 
 ## RFSoC 4x2

@@ -1,5 +1,5 @@
 # Copyright (c) 2016-2022, Xilinx, Inc.
-# Copyright (C) 2022-2025 Advanced Micro Devices, Inc. 
+# Copyright (C) 2022-2026 Advanced Micro Devices, Inc.
 # SPDX-License-Identifier: BSD-3-Clause
 
 ################################################################
@@ -23,7 +23,7 @@ set script_folder [_tcl::get_script_folder]
 ################################################################
 # Check if script is running in correct Vivado version.
 ################################################################
-set scripts_vivado_version 2024.1
+set scripts_vivado_version 2025.2
 set current_vivado_version [version -short]
 
 if { [string first $scripts_vivado_version $current_vivado_version] == -1 } {
@@ -148,7 +148,7 @@ xilinx.com:ip:util_ds_buf:2.2\
 xilinx.com:ip:axi_dma:7.1\
 xilinx.com:ip:axis_data_fifo:2.0\
 xilinx.com:ip:xlconstant:1.1\
-xilinx.com:ip:xxv_ethernet:4.1\
+xilinx.com:ip:xxv_ethernet:5.0\
 xilinx.com:ip:usp_rf_data_converter:2.6\
 xilinx.com:ip:axis_clock_converter:1.1\
 xilinx.com:ip:packet_generator:1.0\
@@ -1661,7 +1661,7 @@ proc create_hier_cell_OffloadEngine { parentCell nameHier } {
 
 
   # Create instance: xxv_ethernet_0, and set properties
-  set xxv_ethernet_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xxv_ethernet:4.1 xxv_ethernet_0 ]
+  set xxv_ethernet_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xxv_ethernet:5.0 xxv_ethernet_0 ]
   set_property -dict [list \
     CONFIG.BASE_R_KR {BASE-R} \
     CONFIG.DIFFCLK_BOARD_INTERFACE {user_mgt_si570_clock} \
@@ -3203,7 +3203,7 @@ Port;FD4A0000;FD4AFFFF;0|FPD;DPDMA;FD4C0000;FD4CFFFF;0|FPD;DDR_XMPU5_CFG;FD05000
   current_bd_instance $oldCurInst
 
   # Create PFM attributes
-  set_property PFM_NAME {xilinx.com:xd:${overlay_name}:1.0} [get_files [current_bd_design].bd]
+  set_property PFM_NAME "xilinx.com:xd:base:1.0" [get_files [current_bd_design].bd]
   set_property PFM.IRQ {In2 {  } In3 {  } In4 {  } In5 {  } In6 {  } In7 {  } } [get_bd_cells /xlconcat_0]
   set_property PFM.CLOCK {  pl_clk0 {id "0" is_default "true"  proc_sys_reset "proc_sys_reset_0" status "fixed"}  } [get_bd_cells /zynq_ultra_ps_e_0]
 
