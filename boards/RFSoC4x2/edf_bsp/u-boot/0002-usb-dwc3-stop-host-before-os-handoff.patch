@@ -1,0 +1,19 @@
+Subject: [PATCH] usb: dwc3: Stop the generic host before OS handoff
+
+The generic host can remain active after U-Boot scans USB. Mark it as
+active DMA so driver-model OS cleanup invokes its remove callback.
+This allows Linux to enumerate the RFSoC4x2 SuperSpeed hub at boot.
+
+Copyright (C) 2026 Advanced Micro Devices, Inc.
+
+--- a/drivers/usb/dwc3/dwc3-generic.c
++++ b/drivers/usb/dwc3/dwc3-generic.c
+@@ -295,7 +295,7 @@
+ 	.priv_auto	= sizeof(struct dwc3_generic_host_priv),
+ 	.plat_auto	= sizeof(struct dwc3_generic_plat),
+ 	.ops = &xhci_usb_ops,
+-	.flags = DM_FLAG_ALLOC_PRIV_DMA,
++	.flags = DM_FLAG_ALLOC_PRIV_DMA | DM_FLAG_ACTIVE_DMA,
+ };
+ #endif
+ 
