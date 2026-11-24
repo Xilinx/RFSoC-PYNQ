@@ -19,6 +19,7 @@
 };
 
 &{/axi/i2c@ff030000/i2c-mux@74/i2c@5/sc18is603@2f} {
+	compatible = "nxp,sc18is602b";
 	#address-cells = <0x1>;
 	#size-cells = <0x0>;
 	lmxC@0 {
