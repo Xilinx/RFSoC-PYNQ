@@ -14,13 +14,9 @@ RFSoC-PYNQ images are available for the following boards and can be downloaded f
 * ZCU111
 * ZCU208
 
-## Other RFSoC-PYNQ enabled boards
-
-RFSoC-PYNQ images have been created by PYNQ community members for other RFSoC boards:
-
-* [ZCU216 GitHub repository](https://github.com/sarafs1926/ZCU216-PYNQ), credit: [Sara Sussman](https://sarafs1926.github.io/)
-
-If an image is not available for your board you can build your own custom RFSoC-PYNQ image by following the [instructions for the ZCU216 RFSoC-PYNQ image build](https://github.com/sarafs1926/ZCU216-PYNQ).
+For boards supported by this repository, you can also follow the
+[image rebuilding instructions](https://github.com/Xilinx/RFSoC-PYNQ#image-rebuilding-steps)
+to build your own image.
 
 ## Getting started
 

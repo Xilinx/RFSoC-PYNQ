@@ -2,7 +2,7 @@
 
 This repository contains the source code and build scripts for the RFSoC-PYNQ base design and SD card images. The design files in this repository are compatible with AMD Vivado 2025.2, and PYNQ v4.0 and later.
 
-Currently, the ZCU111, ZCU208, and RFSoC4x2 platforms are supported.
+Currently, the ZCU111, ZCU208, ZCU216, and RFSoC4x2 platforms are supported.
 
 ## Getting started
 
